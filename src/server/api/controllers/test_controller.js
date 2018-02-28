@@ -11,9 +11,12 @@ const saveTestA = (req, res) => {
     id: new Date().getTime(),
     name: req.body.name,
   };
+  console.log(data);
   test.testA.create(data, (err, result) => {
-    console.log(`[test_controller:saveTestA] successful, id: ${result.id}`);
     if (err) console.error(err);
+    else {
+      console.log(`[test_controller:saveTestA] successful, id: ${result.id}`);
+    }
   });
   res.send('saved');
 };
