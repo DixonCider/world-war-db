@@ -9,7 +9,19 @@
         "jquery": true
     },
     "rules": {
-      "no-console": 0,
-      "no-else-return": 0
+        "no-console": 0,
+        "no-else-return": 0,
+        "no-underscore-dangle": [1, {
+            "allow": [
+                "_id"
+            ]
+        }],
+        "max-len": 0
+
+    },
+    "settings": {
+        "import/resolver": {
+            "babel-module": {}
+        }
     }
 }
