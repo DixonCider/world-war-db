@@ -7,6 +7,6 @@ const testASchema = new Schema({
 
 const testA = mongoose.model('testa', testASchema);
 
-export {
+export default {
   testA,
 };
