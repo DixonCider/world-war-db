@@ -21,6 +21,42 @@ const addExperimentalData = (req, res) => {
   });
 };
 
+const refresh = async (req, res) => {
+  Troop.troopModel.remove({}, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
+
+  const countries = ['USSR', 'USA', 'DPRK', 'China', 'ROK', 'Japan'];
+  const promises = [];
+  for (let i = 0; i < 100; ++i) {
+    const troop = {
+      country: countries[Math.floor(countries.length * Math.random())],
+      troopID: i,
+      loc: [360 * Math.random() - 180, 180 * Math.random() - 90],
+      dest: [360 * Math.random() - 180, 180 * Math.random() - 90],
+      size: 100 * Math.random() + 100,
+      unitAD: 10 * Math.random() + 10,
+      unitHP: 100 * Math.random() + 100,
+      fogR: 10,
+      surroundingTroops: 0,
+    };
+    promises.push(Troop.troopModel.create(troop, (err, result) => {
+      if (err) console.error(err);
+      else {
+        console.log(`successful, id: ${result.troopID}`);
+      }
+    }));
+  }
+  Promise.all(promises)
+    .then(() => res.send('inserted data'))
+    .catch((e) => {
+      console.error(e);
+      res.send('error at inserting data');
+    });
+};
+
 const showAllTroops = async (req, res) => {
   const data = await Troop.troopModel.find((err, result) => result);
   res.json(data);
@@ -33,7 +69,7 @@ const moveTroops = async (req, res) => {
     const movedTroop = troop;
     console.log(troop.loc);
     const bearing = geolib.getBearing({ longitude: movedTroop.loc[0], latitude: movedTroop.loc[1] }, { longitude: movedTroop.dest[0], latitude: movedTroop.dest[1] });
-    const dest = geolib.computeDestinationPoint(movedTroop.loc, 1000000, bearing);
+    const dest = geolib.computeDestinationPoint(movedTroop.loc, 10000, bearing);
     Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err, data) => {
       if (err) console.error(err);
       console.log(data.loc);
@@ -46,7 +82,7 @@ const moveTroops = async (req, res) => {
 
 const fight = async (req, res) => {
   const troops = await Troop.troopModel.find((err, result) => result);
-  const fightTroops = await Promise.all(troops.map(async (troop) => {
+  await Promise.all(troops.map(async (troop) => {
     const proximityTroops = await Troop.troopModel.find({ loc: { $geoWithin: { $centerSphere: [troop.loc, 1000 / 6378.1] } }, country: { $ne: troop.country } }, (err, result) => result);
     await Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { surroundingTroops: proximityTroops.length } }, (err) => {
       if (err) console.error(err);
@@ -66,4 +102,4 @@ const fight = async (req, res) => {
   res.send(foughtTroops);
 };
 
-export { addExperimentalData, showAllTroops, moveTroops, fight };
+export { addExperimentalData, showAllTroops, moveTroops, fight, refresh };

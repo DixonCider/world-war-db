@@ -8,6 +8,7 @@ router.get('/testa', TestController.getTestA);
 router.get('/addtroop', TroopController.addExperimentalData);
 router.get('/showAllTroops', TroopController.showAllTroops);
 router.get('/moveTroops', TroopController.moveTroops);
+router.get('/refresh', TroopController.refresh);
 router.get('/fight', TroopController.fight);
 router.post('/testa', TestController.saveTestA);
 
