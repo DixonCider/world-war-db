@@ -102,4 +102,13 @@ const fight = async (req, res) => {
   res.send(foughtTroops);
 };
 
-export { addExperimentalData, showAllTroops, moveTroops, fight, refresh };
+const getMyTroops = async (req, res) => {
+  console.log(req.query.country);
+  const countryData = {};
+  countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
+  const otherData = {};
+  otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+  res.send({ countryData, otherData });
+};
+
+export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops };

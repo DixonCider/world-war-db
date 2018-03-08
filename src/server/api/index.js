@@ -7,6 +7,7 @@ const router = server.Router();
 router.get('/testa', TestController.getTestA);
 router.get('/addtroop', TroopController.addExperimentalData);
 router.get('/showAllTroops', TroopController.showAllTroops);
+router.get('/getMyTroops', TroopController.getMyTroops);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
 router.get('/fight', TroopController.fight);
