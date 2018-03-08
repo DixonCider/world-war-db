@@ -4,7 +4,7 @@ import { Troop } from 'models';
 const addExperimentalData = (req, res) => {
   const troop1 = {
     country: 'USSR',
-    troopID: 6237,
+    id: 6237,
     loc: [120, 23.5],
     dest: [120, 24.5],
     size: 100,
@@ -33,7 +33,7 @@ const refresh = async (req, res) => {
   for (let i = 0; i < 100; ++i) {
     const troop = {
       country: countries[Math.floor(countries.length * Math.random())],
-      troopID: i,
+      id: i,
       loc: [360 * Math.random() - 180, 180 * Math.random() - 90],
       dest: [360 * Math.random() - 180, 180 * Math.random() - 90],
       size: 100 * Math.random() + 100,
@@ -45,7 +45,7 @@ const refresh = async (req, res) => {
     promises.push(Troop.troopModel.create(troop, (err, result) => {
       if (err) console.error(err);
       else {
-        console.log(`successful, id: ${result.troopID}`);
+        console.log(`successful, id: ${result.id}`);
       }
     }));
   }
@@ -111,4 +111,28 @@ const getMyTroops = async (req, res) => {
   res.send({ countryData, otherData });
 };
 
-export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops };
+const update = async (req, res) => {
+  console.log(req.body.country);
+  const data = JSON.parse(req.body.data);
+  await Promise.all(data.countryData.Troops.map((troop) => {
+    return Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, data) => {
+      if (err) console.error(err);
+      else return data;
+    });
+  }));
+  const countryData = {};
+  countryData.Troops = await Troop.troopModel.find({ country: req.body.country }, (err, result) => result);
+  const otherData = {};
+  const enemy = (await Troop.troopModel.find({ country: { $ne: req.body.country } }, (err, result) => result))
+  otherData.Troops = enemy.map((troop) => {
+    const result = {};
+    Object.assign(result, troop._doc);
+    result.AD = troop.unitAD * troop.size;
+    result.HP = troop.unitHP * troop.size;
+    return result;
+  });
+  res.send({ countryData, otherData });
+  // res.send('hi');
+};
+
+export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops, update };

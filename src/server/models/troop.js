@@ -1,7 +1,7 @@
 import mongoose, { Schema } from 'mongoose';
 
 const troopSchema = new Schema({
-  troopID: { type: String, required: true },
+  id: { type: Number, required: true },
   country: { type: String, required: true },
   loc: { type: Array, required: true },
   dest: { type: Array, required: true },
@@ -9,7 +9,7 @@ const troopSchema = new Schema({
   surroundingTroops: { type: Number, required: true },
   unitAD: { type: Number, required: true },
   unitHP: { type: Number, required: true },
-  fogR: { type: String, required: true },
+  fogR: { type: Number, required: true },
 });
 
 const troopModel = mongoose.model('Troop', troopSchema);

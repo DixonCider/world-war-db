@@ -17,6 +17,8 @@ app.use((req, res, next) => {
   next();
 });
 
+app.use(bodyParser({ limit: '500mb' }));
+
 app.use('/api', api);
 
 app.get('*', (req, res) => {
