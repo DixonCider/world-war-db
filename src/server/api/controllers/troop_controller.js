@@ -41,6 +41,7 @@ const refresh = async (req, res) => {
       unitHP: 100 * Math.random() + 100,
       fogR: 10,
       surroundingTroops: 0,
+      attackR: 10 * Math.random() + 10,
     };
     promises.push(Troop.troopModel.create(troop, (err, result) => {
       if (err) console.error(err);
@@ -102,12 +103,31 @@ const fight = async (req, res) => {
   res.send(foughtTroops);
 };
 
+const move = async () => {
+  const troops = await Troop.troopModel.find((err, result) => result);
+  await Promise.all(troops.map((troop) => {
+    const movedTroop = troop;
+    const bearing = geolib.getBearing({ longitude: movedTroop.loc[0], latitude: movedTroop.loc[1] }, { longitude: movedTroop.dest[0], latitude: movedTroop.dest[1] });
+    const dest = geolib.computeDestinationPoint(movedTroop.loc, 10000, bearing);
+    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err, data) => {
+      if (err) console.error(err);
+    });
+    return movedTroop;
+  }));
+};
+
+const gameLoop = () => {
+  move();
+  setTimeout(gameLoop, 100);
+};
+
 const getMyTroops = async (req, res) => {
   console.log(req.query.country);
   const countryData = {};
   countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
   const otherData = {};
   otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+  setTimeout(gameLoop, 1000);
   res.send({ countryData, otherData });
 };
 
@@ -115,7 +135,8 @@ const update = async (req, res) => {
   console.log(req.body.country);
   const data = JSON.parse(req.body.data);
   await Promise.all(data.countryData.Troops.map((troop) => {
-    return Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, data) => {
+    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, data) => {
+      // console.log(data);
       if (err) console.error(err);
       else return data;
     });
@@ -134,5 +155,6 @@ const update = async (req, res) => {
   res.send({ countryData, otherData });
   // res.send('hi');
 };
+
 
 export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops, update };
