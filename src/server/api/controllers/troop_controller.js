@@ -109,7 +109,7 @@ const move = async () => {
     const movedTroop = troop;
     const bearing = geolib.getBearing({ longitude: movedTroop.loc[0], latitude: movedTroop.loc[1] }, { longitude: movedTroop.dest[0], latitude: movedTroop.dest[1] });
     const dest = geolib.computeDestinationPoint(movedTroop.loc, 10000, bearing);
-    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err, data) => {
+    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err) => {
       if (err) console.error(err);
     });
     return movedTroop;
@@ -134,17 +134,17 @@ const getMyTroops = async (req, res) => {
 const update = async (req, res) => {
   console.log(req.body.country);
   const data = JSON.parse(req.body.data);
-  await Promise.all(data.countryData.Troops.map((troop) => {
-    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, data) => {
-      // console.log(data);
-      if (err) console.error(err);
-      else return data;
-    });
-  }));
+  // await Promise.all(data.countryData.Troops.map((troop) => {
+  //   return Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, result) => {
+  //     // console.log(data);
+  //     if (err) return Promise.reject(err);
+  //     else return result;
+  //   });
+  // }));
   const countryData = {};
   countryData.Troops = await Troop.troopModel.find({ country: req.body.country }, (err, result) => result);
   const otherData = {};
-  const enemy = (await Troop.troopModel.find({ country: { $ne: req.body.country } }, (err, result) => result))
+  const enemy = (await Troop.troopModel.find({ country: { $ne: req.body.country } }, (err, result) => result));
   otherData.Troops = enemy.map((troop) => {
     const result = {};
     Object.assign(result, troop._doc);
@@ -156,5 +156,15 @@ const update = async (req, res) => {
   // res.send('hi');
 };
 
+const updateDest = async (req, res) => {
+  const modifiedTroop = req.body;
+  Troop.troopModel.findOneAndUpdate({ _id: modifiedTroop._id }, { $set: { dest: modifiedTroop.dest } }, (err, data) => {
+    // console.log(data);
+    if (err) return Promise.reject(err);
+    else return data;
+  });
+  res.send('yup');
+};
 
-export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops, update };
+
+export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops, update, updateDest };

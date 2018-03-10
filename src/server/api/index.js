@@ -9,6 +9,7 @@ router.get('/addtroop', TroopController.addExperimentalData);
 router.get('/showAllTroops', TroopController.showAllTroops);
 router.get('/getMyTroops', TroopController.getMyTroops);
 router.post('/update', TroopController.update);
+router.post('/updateDest', TroopController.updateDest);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
 router.get('/fight', TroopController.fight);
