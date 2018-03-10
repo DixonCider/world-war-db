@@ -36,12 +36,12 @@ const refresh = async (req, res) => {
       id: i,
       loc: [360 * Math.random() - 180, 180 * Math.random() - 90],
       dest: [360 * Math.random() - 180, 180 * Math.random() - 90],
-      size: 100 * Math.random() + 100,
-      unitAD: 10 * Math.random() + 10,
+      size: 1000 * Math.random() + 1000,
+      unitAD: 5 * Math.random() + 5,
       unitHP: 100 * Math.random() + 100,
       fogR: 10,
       surroundingTroops: 0,
-      attackR: 10 * Math.random() + 10,
+      attackR: 10,
     };
     promises.push(Troop.troopModel.create(troop, (err, result) => {
       if (err) console.error(err);
@@ -81,26 +81,40 @@ const moveTroops = async (req, res) => {
   res.json(movedTroops);
 };
 
-const fight = async (req, res) => {
+const fight = async () => {
   const troops = await Troop.troopModel.find((err, result) => result);
+  // await Troop.troopModel.update(
+  //   {},
+  //   { surroundingTroops: 0 },
+  // );
+  // await Promise.all(troops.map(async (troop) => {
+  //   const proximityTroops = await Troop.troopModel.find({ loc: { $geoWithin: { $centerSphere: [troop.loc, 1000 / 6378.1] } }, country: { $ne: troop.country } }, (err, result) => result);
+  //   await Promise.all(proximityTroops.map(enemy => Troop.troopModel.findOneAndUpdate({ _id: enemy._id }, { $inc: { surroundingTroops: 1 } })));
+  //   return proximityTroops;
+  // }));
+
   await Promise.all(troops.map(async (troop) => {
-    const proximityTroops = await Troop.troopModel.find({ loc: { $geoWithin: { $centerSphere: [troop.loc, 1000 / 6378.1] } }, country: { $ne: troop.country } }, (err, result) => result);
-    await Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { surroundingTroops: proximityTroops.length } }, (err) => {
-      if (err) console.error(err);
-    });
-    return proximityTroops;
-  }));
-
-  const foughtTroops = await Promise.all(troops.map(async (troop) => {
-    const proximityTroops = await Troop.troopModel.find({ loc: { $geoWithin: { $centerSphere: [troop.loc, 1000 / 6378.1] } }, country: { $ne: troop.country } }, (err, result) => result);
+    // const proximityTroops = await Troop.troopModel.find({ loc: { $geoWithin: { $centerSphere: [troop.loc, 1000 / 6378.1] } }, country: { $ne: troop.country } }, (err, result) => result);
+    const proximityTroops = await Troop.troopModel.aggregate(
+      [
+        {
+          $geoNear: {
+            near: troop.loc,
+            distanceField: 'distance',
+            includeLocs: 'loc',
+            spherical: true,
+          },
+        },
+        { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
+        { $match: { isIn: { $lte: 0 } } },
+        { $match: { country: { $ne: troop.country } } },
+      ]);
     const damage = proximityTroops.reduce((totalATK, enemy) => (totalATK + enemy.unitAD), 0);
-    await Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $inc: { unitHP: -damage } }, (err) => {
+    await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage } }, (err) => {
       if (err) console.error(err);
     });
     return proximityTroops;
   }));
-
-  res.send(foughtTroops);
 };
 
 const move = async () => {
@@ -118,11 +132,11 @@ const move = async () => {
 
 const gameLoop = () => {
   move();
-  setTimeout(gameLoop, 100);
+  fight();
+  setTimeout(gameLoop, 1000);
 };
 
 const getMyTroops = async (req, res) => {
-  console.log(req.query.country);
   const countryData = {};
   countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
   const otherData = {};
@@ -132,7 +146,6 @@ const getMyTroops = async (req, res) => {
 };
 
 const update = async (req, res) => {
-  console.log(req.body.country);
   const data = JSON.parse(req.body.data);
   // await Promise.all(data.countryData.Troops.map((troop) => {
   //   return Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { dest: troop.dest } }, (err, result) => {
@@ -142,9 +155,9 @@ const update = async (req, res) => {
   //   });
   // }));
   const countryData = {};
-  countryData.Troops = await Troop.troopModel.find({ country: req.body.country }, (err, result) => result);
+  countryData.Troops = await Troop.troopModel.find({ country: req.body.country, size: { $gte: 0 } }, (err, result) => result);
   const otherData = {};
-  const enemy = (await Troop.troopModel.find({ country: { $ne: req.body.country } }, (err, result) => result));
+  const enemy = (await Troop.troopModel.find({ country: { $ne: req.body.country }, size: { $gte: 0 } }, (err, result) => result));
   otherData.Troops = enemy.map((troop) => {
     const result = {};
     Object.assign(result, troop._doc);
@@ -167,4 +180,4 @@ const updateDest = async (req, res) => {
 };
 
 
-export { addExperimentalData, showAllTroops, moveTroops, fight, refresh, getMyTroops, update, updateDest };
+export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, update, updateDest };

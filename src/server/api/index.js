@@ -12,7 +12,6 @@ router.post('/update', TroopController.update);
 router.post('/updateDest', TroopController.updateDest);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
-router.get('/fight', TroopController.fight);
 router.post('/testa', TestController.saveTestA);
 
 export default router;
