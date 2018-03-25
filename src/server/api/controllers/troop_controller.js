@@ -1,5 +1,6 @@
 import geolib from 'geolib';
 import { Troop } from 'models';
+import * as game from 'game';
 
 const addExperimentalData = (req, res) => {
   const troop1 = {
@@ -84,65 +85,8 @@ const moveTroops = async (req, res) => {
   res.json(movedTroops);
 };
 
-const enemyList = {
-  DPRK: ['USA', 'Korea', 'Russia', 'PRC', 'Japan', 'Mexico', 'India', 'Phillipines'],
-  USA: [],
-  Korea: [],
-  Russia: [],
-  ROC: [],
-  Japan: [],
-  Mexico: [],
-  India: [],
-  Phillipines: [],
-  Vietnam: [],
-};
+game.startGame();
 
-
-const fight = async () => {
-  const troops = await Troop.troopModel.find({ size: { $gte: 0 } }, (err, result) => result);
-
-  await Promise.all(troops.map(async (troop) => {
-    const enemys = Object.keys(enemyList).filter(country => enemyList[country].includes(troop.country));
-    const proximityTroops = await Troop.troopModel.aggregate([
-      {
-        $geoNear: {
-          near: troop.loc,
-          distanceField: 'distance',
-          includeLocs: 'loc',
-          spherical: true,
-        },
-      },
-      { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
-      { $match: { isIn: { $lte: 0 } } },
-      { $match: { country: { $ne: troop.country } } },
-      { $match: { size: { $gt: 0 } } },
-      { $match: { country: { $in: enemys } } },
-    ]);
-    const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size), 0);
-    await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP } });
-    return proximityTroops;
-  }));
-};
-
-const move = async () => {
-  const troops = await Troop.troopModel.find((err, result) => result);
-  await Promise.all(troops.map((troop) => {
-    const movedTroop = troop;
-    const bearing = geolib.getBearing({ longitude: movedTroop.loc[0], latitude: movedTroop.loc[1] }, { longitude: movedTroop.dest[0], latitude: movedTroop.dest[1] });
-    const dest = geolib.computeDestinationPoint(movedTroop.loc, 100000, bearing);
-    Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err) => {
-      if (err) console.error(err);
-    });
-    return movedTroop;
-  }));
-};
-
-const gameLoop = () => {
-  move();
-  fight();
-  setTimeout(gameLoop, 1000);
-};
-setTimeout(gameLoop, 1000);
 const getMyTroops = async (req, res) => {
   const countryData = {};
   countryData.Nation = req.query.country;
@@ -179,8 +123,8 @@ const updateDest = async (req, res) => {
 };
 
 const updateEnemy = async (req, res) => {
-  enemyList[req.body.country] = req.body.enemy || [];
-  console.log(enemyList);
+  game.enemyList[req.body.country] = req.body.enemy || [];
+  console.log(game.enemyList);
   res.send('ok');
 };
 

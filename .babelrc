@@ -6,7 +6,8 @@
       "alias": {
         "config": "./src/server/config",
         "api": "./src/server/api",
-        "models": "./src/server/models"
+        "models": "./src/server/models",
+        "game": "./src/server/game"
       }
     }]
   ]
