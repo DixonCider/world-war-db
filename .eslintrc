@@ -11,11 +11,7 @@
     "rules": {
         "no-console": 0,
         "no-else-return": 0,
-        "no-underscore-dangle": [1, {
-            "allow": [
-                "_id"
-            ]
-        }],
+        "no-underscore-dangle": [0],
         "max-len": 0,
         "no-plusplus": 0,
         "no-mixed-operators": 0

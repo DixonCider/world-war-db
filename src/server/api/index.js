@@ -10,6 +10,7 @@ router.get('/showAllTroops', TroopController.showAllTroops);
 router.get('/getMyTroops', TroopController.getMyTroops);
 router.post('/update', TroopController.update);
 router.post('/updateDest', TroopController.updateDest);
+router.post('/updateEnemy', TroopController.updateEnemy);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
 router.post('/testa', TestController.saveTestA);
