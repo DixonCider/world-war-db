@@ -15,5 +15,6 @@ router.post('/updateEnemy', TroopController.updateEnemy);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
 router.get('/initCountry', countryController.init);
+router.post('/addBlock', countryController.addBlock);
 
 export default router;

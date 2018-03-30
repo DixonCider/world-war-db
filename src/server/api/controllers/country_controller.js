@@ -1,4 +1,4 @@
-import { Country } from 'models';
+import { Country, Block } from 'models';
 import { Countries } from 'game';
 
 const init = async (req, res) => {
@@ -19,4 +19,19 @@ const init = async (req, res) => {
   res.send('successful');
 };
 
-export { init };
+const addBlock = (req, res) => {
+  console.log(req.body);
+  const blockInfo = req.body;
+  Block.blockModel.update({ name: blockInfo.name }, blockInfo, { upsert: true }, (err, result) => {
+    if (err) console.error(err);
+    else {
+      console.log(`successful, id: ${result.name}`);
+    }
+  });
+  res.send(`gotya ${blockInfo.name}`);
+};
+
+// const trade = (req, res) => {
+// };
+
+export { init, addBlock };
