@@ -9,7 +9,7 @@ const addExperimentalData = (req, res) => {
     loc: [120, 23.5],
     dest: [120, 24.5],
     size: 100,
-    unitAD: 1,
+    unitAD: 0,
     unitHP: 500,
     fogR: 10,
   };

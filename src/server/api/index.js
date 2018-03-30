@@ -1,6 +1,7 @@
 import server from 'express';
 import * as TestController from './controllers/test_controller';
 import * as TroopController from './controllers/troop_controller';
+import * as countryController from './controllers/country_controller';
 
 const router = server.Router();
 
@@ -13,6 +14,6 @@ router.post('/updateDest', TroopController.updateDest);
 router.post('/updateEnemy', TroopController.updateEnemy);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
-router.post('/testa', TestController.saveTestA);
+router.get('/initCountry', countryController.init);
 
 export default router;

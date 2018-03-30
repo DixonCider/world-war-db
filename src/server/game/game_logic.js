@@ -2,7 +2,7 @@ import geolib from 'geolib';
 import { Troop } from 'models';
 
 const enemyList = {
-  DPRK: ['USA', 'Korea', 'Russia', 'PRC', 'Japan', 'Mexico', 'India', 'Phillipines'],
+  DPRK: [],
   USA: [],
   Korea: [],
   Russia: [],

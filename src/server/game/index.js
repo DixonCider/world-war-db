@@ -1,4 +1,5 @@
 import { move, fight, enemyList } from './game_logic';
+import { Countries } from './variebles';
 
 const gameLoop = () => {
   move();
@@ -10,4 +11,4 @@ const startGame = () => {
   setTimeout(gameLoop, 1000);
 };
 
-export { startGame, enemyList };
+export { startGame, enemyList, Countries };
