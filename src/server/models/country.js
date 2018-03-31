@@ -2,7 +2,14 @@ import mongoose, { Schema } from 'mongoose';
 
 const countrySchema = new Schema({
   name: { type: String, required: true },
-  money: { type: Number, required: true },
+  resource: {
+    a: { type: Number, required: true },
+    b: { type: Number, required: true },
+    c: { type: Number, required: true },
+    x: { type: Number, required: true },
+    y: { type: Number, required: true },
+    z: { type: Number, required: true },
+  },
   enemyList: [{ type: String, required: true }],
   techTree: {
     atk: [{

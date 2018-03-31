@@ -17,4 +17,6 @@ router.get('/refresh', TroopController.refresh);
 router.get('/initCountry', countryController.init);
 router.post('/addBlock', countryController.addBlock);
 
+router.get('/reasource', countryController.getReasource);
+
 export default router;
