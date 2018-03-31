@@ -14,17 +14,17 @@ const countrySchema = new Schema({
   techTree: {
     atk: [{
       name: { type: String, required: true },
-      multiplier: { type: Number, required: true },
+      effect: { type: Number, required: true },
       developed: { type: Boolean, required: true },
     }],
     hp: [{
       name: { type: String, required: true },
-      multiplier: { type: Number, required: true },
+      effect: { type: Number, required: true },
       developed: { type: Boolean, required: true },
     }],
     money: [{
       name: { type: String, required: true },
-      multiplier: { type: Number, required: true },
+      effect: { type: Number, required: true },
       developed: { type: Boolean, required: true },
     }],
   },

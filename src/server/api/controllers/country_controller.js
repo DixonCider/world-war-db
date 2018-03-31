@@ -49,7 +49,6 @@ const addBlock = (req, res) => {
 
 const getReasource = async (req, res) => {
   const { country } = req.query;
-  console.log(country);
   const reasource = await Country.countryModel.findOne({ name: country }, 'resource', (err, result) => {
     if (err) console.error(result);
     return reasource;
@@ -57,4 +56,28 @@ const getReasource = async (req, res) => {
   res.send(reasource);
 };
 
-export { init, addBlock, getReasource };
+const getTechtree = async (req, res) => {
+  const { country } = req.query;
+  const techTree = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
+    if (err) console.error(err);
+    return result;
+  });
+  console.log(techTree);
+  if (!techTree) {
+    res.send('country not found');
+  } else {
+    res.send(techTree);
+  }
+};
+
+const developeTech = async (req, res) => {
+  const { country, nodename } = req.query;
+  await Country.countryModel.update({ name: country, 'techTree.atk.name': nodename }, { $set: { 'techTree.atk.$.developed': true } }, (err, result) => {
+    console.log(result);
+    if (err) console.error(err);
+    return result;
+  });
+  res.send('ok');
+};
+
+export { init, addBlock, getReasource, getTechtree, developeTech };

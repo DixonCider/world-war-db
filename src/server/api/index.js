@@ -19,4 +19,7 @@ router.post('/addBlock', countryController.addBlock);
 
 router.get('/reasource', countryController.getReasource);
 
+router.get('/techTree', countryController.getTechtree);
+router.get('/developeTech', countryController.developeTech);
+
 export default router;
