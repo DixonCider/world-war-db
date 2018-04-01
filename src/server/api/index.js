@@ -17,7 +17,7 @@ router.get('/refresh', TroopController.refresh);
 router.get('/initCountry', countryController.init);
 router.post('/addBlock', countryController.addBlock);
 
-router.get('/reasource', countryController.getReasource);
+router.get('/resource', countryController.getReasource);
 
 router.get('/techTree', countryController.getTechtree);
 router.get('/developeTech', countryController.developeTech);

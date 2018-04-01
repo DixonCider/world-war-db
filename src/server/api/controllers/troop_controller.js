@@ -9,8 +9,8 @@ const addExperimentalData = (req, res) => {
     loc: [120, 23.5],
     dest: [120, 24.5],
     size: 100,
-    unitAD: 0,
-    unitHP: 500,
+    unitAD: 100,
+    unitHP: 1000,
     fogR: 10,
   };
   Troop.troopModel.create(troop1, (err, result) => {

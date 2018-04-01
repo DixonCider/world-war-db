@@ -53,7 +53,11 @@ const getReasource = async (req, res) => {
     if (err) console.error(result);
     return reasource;
   });
-  res.send(reasource);
+  if (!reasource) {
+    res.send('country not found');
+  } else {
+    res.send(reasource);
+  }
 };
 
 const getTechtree = async (req, res) => {
@@ -71,8 +75,18 @@ const getTechtree = async (req, res) => {
 };
 
 const developeTech = async (req, res) => {
-  const { country, nodename } = req.query;
-  await Country.countryModel.update({ name: country, 'techTree.atk.name': nodename }, { $set: { 'techTree.atk.$.developed': true } }, (err, result) => {
+  const { country, tech } = req.query;
+  await Country.countryModel.update({ name: country, 'techTree.atk.name': tech }, { $set: { 'techTree.atk.$.developed': true } }, (err, result) => {
+    console.log(result);
+    if (err) console.error(err);
+    return result;
+  });
+  await Country.countryModel.update({ name: country, 'techTree.hp.name': tech }, { $set: { 'techTree.hp.$.developed': true } }, (err, result) => {
+    console.log(result);
+    if (err) console.error(err);
+    return result;
+  });
+  await Country.countryModel.update({ name: country, 'techTree.money.name': tech }, { $set: { 'techTree.money.$.developed': true } }, (err, result) => {
     console.log(result);
     if (err) console.error(err);
     return result;
