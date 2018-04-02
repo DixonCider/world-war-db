@@ -1,6 +1,10 @@
 import { Country, Block } from 'models';
 import { Countries, TechTree } from 'game';
 
+const getCountryList = (req, res) => {
+  res.send(Countries);
+};
+
 const init = async (req, res) => {
   Country.countryModel.remove({}, (err) => {
     if (err) {
@@ -94,4 +98,4 @@ const developeTech = async (req, res) => {
   res.send('ok');
 };
 
-export { init, addBlock, getReasource, getTechtree, developeTech };
+export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList };

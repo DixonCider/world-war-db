@@ -8,9 +8,9 @@ router.get('/showAllTroops', TroopController.showAllTroops);
 
 router.get('/addtroop', TroopController.addExperimentalData);
 router.get('/getMyTroops', TroopController.getMyTroops);
-router.get('/enemyList', TroopController.getEnemyList);
 router.post('/update', TroopController.update);
 router.post('/updateDest', TroopController.updateDest);
+router.get('/enemyList', TroopController.getEnemyList);
 router.post('/updateEnemy', TroopController.updateEnemy);
 router.get('/moveTroops', TroopController.moveTroops);
 router.get('/refresh', TroopController.refresh);
@@ -21,5 +21,7 @@ router.get('/resource', countryController.getReasource);
 
 router.get('/techTree', countryController.getTechtree);
 router.get('/developeTech', countryController.developeTech);
+
+router.get('/countryList', countryController.getCountryList);
 
 export default router;
