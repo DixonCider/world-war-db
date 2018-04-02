@@ -2,6 +2,10 @@ import mongoose, { Schema } from 'mongoose';
 
 const countrySchema = new Schema({
   name: { type: String, required: true },
+  troop: {
+    fogR: { type: Number, required: true },
+    attackR: { type: Number, required: true },
+  },
   resource: {
     a: { type: Number, required: true },
     b: { type: Number, required: true },

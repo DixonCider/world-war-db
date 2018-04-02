@@ -2,10 +2,18 @@ import { Country, Block } from 'models';
 import { Countries, TechTree } from 'game';
 
 const init = async (req, res) => {
-  console.log(TechTree);
+  Country.countryModel.remove({}, (err) => {
+    if (err) {
+      console.error(err);
+    }
+  });
   await Countries.forEach((element) => {
     const country = {
       name: element,
+      troop: {
+        fogR: 10,
+        attackR: 10,
+      },
       resource: {
         a: 1000,
         b: 1000,
@@ -14,6 +22,7 @@ const init = async (req, res) => {
         y: 1000,
         z: 1000,
       },
+      money: 1000,
       enemyList: [],
       techTree: TechTree,
       multipliers: {
@@ -75,18 +84,9 @@ const getTechtree = async (req, res) => {
 };
 
 const developeTech = async (req, res) => {
-  const { country, tech } = req.query;
-  await Country.countryModel.update({ name: country, 'techTree.atk.name': tech }, { $set: { 'techTree.atk.$.developed': true } }, (err, result) => {
-    console.log(result);
-    if (err) console.error(err);
-    return result;
-  });
-  await Country.countryModel.update({ name: country, 'techTree.hp.name': tech }, { $set: { 'techTree.hp.$.developed': true } }, (err, result) => {
-    console.log(result);
-    if (err) console.error(err);
-    return result;
-  });
-  await Country.countryModel.update({ name: country, 'techTree.money.name': tech }, { $set: { 'techTree.money.$.developed': true } }, (err, result) => {
+  const { country, tech, type = 'atk' } = req.query;
+  console.log(country, tech, type);
+  await Country.countryModel.update({ name: country, [`techTree.${type}.name`]: tech }, { $set: { [`techTree.${type}.$.developed`]: true } }, (err, result) => {
     console.log(result);
     if (err) console.error(err);
     return result;

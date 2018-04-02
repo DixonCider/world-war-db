@@ -9,8 +9,8 @@ const troopSchema = new Schema({
   surroundingTroops: { type: Number, required: true },
   unitAD: { type: Number, required: true },
   unitHP: { type: Number, required: true },
-  fogR: { type: Number, required: true },
-  attackR: { type: Number, required: true },
+  // fogR: { type: Number, required: true },
+  // attackR: { type: Number, required: true },
 });
 
 const troopModel = mongoose.model('Troop', troopSchema);

@@ -43,9 +43,9 @@ const refresh = async (req, res) => {
       size: 100,
       unitAD: 10,
       unitHP: 100,
-      fogR: 10,
       surroundingTroops: 0,
-      attackR: 10,
+      // fogR: 10,
+      // attackR: 10,
     };
     promises.push(Troop.troopModel.create(troop, (err, result) => {
       if (err) console.error(err);
@@ -91,10 +91,71 @@ const getMyTroops = async (req, res) => {
   const countryData = {};
   countryData.Nation = req.query.country;
   console.log(countryData.Nation);
-  countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
+  // countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
+  countryData.Troops = await Troop.troopModel.aggregate([
+    {
+      $match: { country: req.query.country },
+    },
+    {
+      $lookup: {
+        from: 'countries',
+        localField: 'country',
+        foreignField: 'name',
+        as: 'countryInfo',
+      },
+    },
+    {
+      $unwind: '$countryInfo',
+    },
+    {
+      $addFields: {
+        attackR: '$countryInfo.troop.attackR',
+        fogR: '$countryInfo.troop.fogR',
+      },
+    },
+    {
+      $project: {
+        countryInfo: 0,
+      },
+    },
+  ], (err, result) => result);
   const otherData = {};
-  otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+  // otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+  otherData.Troops = await Troop.troopModel.aggregate([
+    {
+      $match: {
+        country: { $ne: req.query.country },
+      },
+    },
+    {
+      $lookup: {
+        from: 'countries',
+        localField: 'country',
+        foreignField: 'name',
+        as: 'countryInfo',
+      },
+    },
+    {
+      $unwind: '$countryInfo',
+    },
+    {
+      $addFields: {
+        attackR: '$countryInfo.troop.attackR',
+        fogR: '$countryInfo.troop.fogR',
+      },
+    },
+    {
+      $project: {
+        countryInfo: 0,
+      },
+    },
+  ], (err, result) => result);
   res.send({ countryData, otherData });
+};
+
+const getEnemyList = async (req, res) => {
+  const { country } = req.query;
+  res.send(game.enemyList[country]);
 };
 
 const update = async (req, res) => {
@@ -129,4 +190,4 @@ const updateEnemy = async (req, res) => {
 };
 
 
-export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, update, updateDest, updateEnemy };
+export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, getEnemyList, update, updateDest, updateEnemy };
