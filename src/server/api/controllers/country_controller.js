@@ -11,7 +11,8 @@ const init = async (req, res) => {
       console.error(err);
     }
   });
-  await Countries.forEach((element) => {
+  await Countries.forEach(async (element) => {
+    console.log(element);
     const country = {
       name: element,
       troop: {
@@ -19,12 +20,13 @@ const init = async (req, res) => {
         attackR: 10,
       },
       resource: {
-        a: 1000,
-        b: 1000,
-        c: 1000,
-        x: 1000,
-        y: 1000,
-        z: 1000,
+        a: 100,
+        b: 100,
+        c: 100,
+        d: 100,
+        x: 100,
+        y: 100,
+        z: 100,
       },
       money: 1000,
       enemyList: [],
@@ -35,11 +37,12 @@ const init = async (req, res) => {
         money: 1,
       },
     };
-    Country.countryModel.update({ name: element }, country, { upsert: true }, (err, result) => {
+    await Country.countryModel.update({ name: element }, country, { upsert: true }, (err, result) => {
       if (err) console.error(err);
       else {
-        console.log(`successful, id: ${result.name}`);
+        console.log(`successful, id: ${element}`);
       }
+      return result;
     });
   });
   res.send('successful');
@@ -89,13 +92,58 @@ const getTechtree = async (req, res) => {
 
 const developeTech = async (req, res) => {
   const { country, tech, type = 'atk' } = req.query;
-  console.log(country, tech, type);
-  await Country.countryModel.update({ name: country, [`techTree.${type}.name`]: tech }, { $set: { [`techTree.${type}.$.developed`]: true } }, (err, result) => {
-    console.log(result);
-    if (err) console.error(err);
+  console.log(country);
+  const { techTree } = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
+    if (err) console.err(err);
     return result;
   });
-  res.send('ok');
+  const techIndex = techTree[type].findIndex(x => x.name === tech);
+  if (!techIndex || techTree[type][techIndex - 1].developed) {
+    const { resource } = await Country.countryModel.findOne({ name: country }, 'resource', (err, result) => {
+      if (err) console.error(err);
+      return result;
+    });
+    const isWealthy = Object.keys(resource).reduce((acc, cur) => ((resource[cur] >= techTree[type][techIndex].cost[cur]) ? acc : acc - 1), 0);
+    if (isWealthy >= 0) {
+      console.log(techTree[type][techIndex].cost);
+      await Country.countryModel.updateOne(
+        { name: country, [`techTree.${type}.name`]: tech },
+        {
+          $set: {
+            [`techTree.${type}.$.developed`]: true,
+          },
+        }, (err, result) => {
+          console.log(result);
+          if (err) console.error(err);
+          return result;
+        },
+      );
+      await Country.countryModel.update(
+        { name: country },
+        {
+          $inc: {
+            'resource.a': -techTree[type][techIndex].cost.a / 2,
+            'resource.b': -techTree[type][techIndex].cost.b / 2,
+            'resource.c': -techTree[type][techIndex].cost.c / 2,
+            'resource.d': -techTree[type][techIndex].cost.d / 2,
+            'resource.x': -techTree[type][techIndex].cost.x / 2,
+            'resource.y': -techTree[type][techIndex].cost.y / 2,
+            'resource.z': -techTree[type][techIndex].cost.z / 2,
+          },
+        }, (err, result) => {
+          console.log(result);
+          if (err) console.error(err);
+          return result;
+        },
+      );
+      console.log(techTree[type][techIndex].cost);
+      res.send('ok');
+    } else {
+      res.send('not enough reasources');
+    }
+  } else {
+    res.send('prev undeveloped');
+  }
 };
 
 export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList };
