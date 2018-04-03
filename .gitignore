@@ -30,3 +30,4 @@ public
 
 #npm5
 ./package-lock.json
+mongoquery.js

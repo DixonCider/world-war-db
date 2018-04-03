@@ -1,5 +1,5 @@
 import geolib from 'geolib';
-import { Troop } from 'models';
+import { Troop, Country } from 'models';
 import * as game from 'game';
 
 const addExperimentalData = (req, res) => {
@@ -189,5 +189,31 @@ const updateEnemy = async (req, res) => {
   res.send('ok');
 };
 
+const addTroop = async (req, res) => {
+  const { country } = req.body;
+  const countryData = await Country.countryModel.findOne({ name: country });
+  const number = await Troop.troopModel.find({}, (err, result) => {
+    if (err) console.error(err);
+    return result;
+  }).count();
+  const troop = {
+    country,
+    id: number + 1,
+    loc: countryData.capital,
+    dest: countryData.capital,
+    size: 100,
+    unitAD: 100,
+    unitHP: 1000,
+    fogR: 10,
+  };
+  await Troop.troopModel.create(troop, (err) => {
+    if (err) {
+      console.error(err);
+      res.send(err);
+    } else {
+      res.send(`successful, id: ${number + 1}`);
+    }
+  });
+};
 
-export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, getEnemyList, update, updateDest, updateEnemy };
+export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, getEnemyList, update, updateDest, updateEnemy, addTroop };

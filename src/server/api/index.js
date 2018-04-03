@@ -6,7 +6,7 @@ const router = server.Router();
 
 router.get('/showAllTroops', TroopController.showAllTroops);
 
-router.get('/addtroop', TroopController.addExperimentalData);
+router.post('/addtroop', TroopController.addTroop);
 router.get('/getMyTroops', TroopController.getMyTroops);
 router.post('/update', TroopController.update);
 router.post('/updateDest', TroopController.updateDest);
@@ -23,5 +23,9 @@ router.get('/techTree', countryController.getTechtree);
 router.get('/developeTech', countryController.developeTech);
 
 router.get('/countryList', countryController.getCountryList);
+
+router.get('/CreateResourcePoint', countryController.makeResourcePoints);
+router.get('/resourcePoint', countryController.getResourcePoints);
+router.post('/mineResource', countryController.mineResource);
 
 export default router;

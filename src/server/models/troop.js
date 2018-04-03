@@ -6,7 +6,7 @@ const troopSchema = new Schema({
   loc: { type: Array, required: true },
   dest: { type: Array, required: true },
   size: { type: Number, required: true },
-  surroundingTroops: { type: Number, required: true },
+  // surroundingTroops: { type: Number, required: true },
   unitAD: { type: Number, required: true },
   unitHP: { type: Number, required: true },
   // fogR: { type: Number, required: true },
