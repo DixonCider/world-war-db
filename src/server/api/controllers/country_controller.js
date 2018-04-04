@@ -22,7 +22,6 @@ const modCountry = async (req, res) => {
 const countryInfo = async (req, res) => {
   const { country } = req.query;
   const info = await Country.countryModel.findOne({ name: country });
-  console.log(info);
   res.send(info);
 };
 
@@ -60,6 +59,7 @@ const init = async (req, res) => {
         hp: 1,
         money: 1,
       },
+      nuclear: false,
     };
     await Country.countryModel.update({ name: element }, country, { upsert: true }, (err, result) => {
       if (err) console.error(err);
@@ -106,7 +106,6 @@ const getTechtree = async (req, res) => {
     if (err) console.error(err);
     return result;
   });
-  console.log(techTree);
   if (!techTree) {
     res.send('country not found');
   } else {
@@ -209,6 +208,25 @@ const makeResourcePoints = async (req, res) => {
     });
 };
 
+const addResourcePoint = async (req, res) => {
+  const {
+    loc, cost, award, range,
+  } = req.body;
+  const num = await resourcePoint.resourcePointModel.find({}, (err, result) => {
+    if (err) console.error(err);
+    return result;
+  }).count();
+  const point = {
+    id: num + 1,
+    loc,
+    cost,
+    award,
+    range,
+  };
+  await resourcePoint.resourcePointModel.create(point);
+  res.send('made');
+};
+
 const getResourcePoints = async (req, res) => {
   const resourcePoints = await resourcePoint.resourcePointModel.find({}, (err, result) => {
     if (err) console.error(err);
@@ -271,4 +289,43 @@ const mineResource = async (req, res) => {
   }
 };
 
-export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList, makeResourcePoints, getResourcePoints, mineResource, getAllCountries, modCountry, countryInfo };
+const developeNuke = async (req, res) => {
+  const { country } = req.body;
+  await Country.countryModel.update(
+    { name: country },
+    {
+      $set: {
+        nuclear: true,
+      },
+    },
+  );
+  res.send('nuked!');
+};
+
+const nuke = async (req, res) => {
+  const { country, target } = req.body;
+  const { nuclear } = await Country.countryModel.findOne({ name: country });
+  if (nuclear) {
+    console.log(target);
+    await Troop.troopModel.update(
+      { country: target },
+      {
+        $set: {
+          size: 0,
+        },
+      },
+      {
+        multi: true,
+      },
+      (err, result) => {
+        if (err) console.error(err);
+        else console.log(result);
+      },
+    );
+    res.send('nuked!');
+  } else {
+    res.send('no nuke la');
+  }
+};
+
+export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList, makeResourcePoints, addResourcePoint, getResourcePoints, mineResource, getAllCountries, modCountry, countryInfo, developeNuke, nuke };

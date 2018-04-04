@@ -68,6 +68,7 @@ const countrySchema = new Schema({
     hp: { type: Number, required: true },
     money: { type: Number, required: true },
   },
+  nuclear: { type: Boolean, required: true },
 });
 
 const countryModel = mongoose.model('Country', countrySchema);

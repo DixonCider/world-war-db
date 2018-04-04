@@ -27,8 +27,12 @@ router.get('/developeTech', countryController.developeTech);
 
 router.get('/countryList', countryController.getCountryList);
 
+router.post('/addResourcePoint', countryController.addResourcePoint);
 router.get('/CreateResourcePoint', countryController.makeResourcePoints);
 router.get('/resourcePoint', countryController.getResourcePoints);
 router.post('/mineResource', countryController.mineResource);
+
+router.post('/developeNuke', countryController.developeNuke);
+router.post('/NUKE', countryController.nuke);
 
 export default router;

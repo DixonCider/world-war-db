@@ -156,7 +156,7 @@ const getMyTroops = async (req, res) => {
       },
     ], (err, result) => result);
     const otherData = {};
-    // otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+    otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
     const enemy = await Troop.troopModel.aggregate([
       {
         $match: {
@@ -186,14 +186,59 @@ const getMyTroops = async (req, res) => {
         },
       },
     ], (err, result) => result);
-    otherData.Troops = enemy.map((troop) => {
-      const result = {};
-      Object.assign(result, troop);
-      result.AD = troop.unitAD * troop.size;
-      result.HP = troop.unitHP * troop.size;
-      return result;
+    const nearbyTroops = [];
+    const promises = enemy.map(async (troop) => {
+      const proximityTroops = await Troop.troopModel.aggregate([
+        {
+          $geoNear: {
+            near: troop.loc,
+            distanceField: 'distance',
+            includeLocs: 'loc',
+            spherical: true,
+          },
+        },
+        {
+          $lookup: {
+            from: 'countries',
+            localField: 'country',
+            foreignField: 'name',
+            as: 'countryInfo',
+          },
+        },
+        {
+          $unwind: '$countryInfo',
+        },
+        {
+          $addFields: {
+            attackR: '$countryInfo.troop.attackR',
+            fogR: '$countryInfo.troop.fogR',
+          },
+        },
+        { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
+        // { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
+        { $match: { isIn: { $lte: 0 } } },
+        { $match: { country: req.query.country } },
+        { $match: { size: { $gt: 0 } } },
+      ]);
+      if (proximityTroops.length !== 0) {
+        nearbyTroops.push(troop);
+      }
     });
-    res.send({ countryData, otherData });
+    Promise.all(promises)
+      .then(() => {
+        otherData.Troops = nearbyTroops.map((troop) => {
+          const result = {};
+          Object.assign(result, troop);
+          result.AD = troop.unitAD * troop.size;
+          result.HP = troop.unitHP * troop.size;
+          return result;
+        });
+        res.send({ countryData, otherData });
+      })
+      .catch((e) => {
+        console.error(e);
+        res.send('error at inserting data');
+      });
   }
 };
 
