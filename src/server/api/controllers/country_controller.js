@@ -5,6 +5,27 @@ const getCountryList = (req, res) => {
   res.send(Countries);
 };
 
+const getAllCountries = async (req, res) => {
+  const countries = await Country.countryModel.find();
+  res.send(countries);
+};
+
+const modCountry = async (req, res) => {
+  const data = req.body;
+  await Country.countryModel.update(
+    { name: data.name },
+    data,
+  );
+  res.send('success');
+};
+
+const countryInfo = async (req, res) => {
+  const { country } = req.query;
+  const info = await Country.countryModel.findOne({ name: country });
+  console.log(info);
+  res.send(info);
+};
+
 const init = async (req, res) => {
   Country.countryModel.remove({}, (err) => {
     if (err) {
@@ -17,20 +38,21 @@ const init = async (req, res) => {
     const country = {
       name: element,
       capital: loc,
+      money: 1000,
       troop: {
         fogR: 10,
-        attackR: 10,
+        attackR: 5,
       },
+      troopCost: 100,
       resource: {
-        a: 100,
-        b: 100,
-        c: 100,
-        d: 100,
-        x: 100,
-        y: 100,
-        z: 100,
+        a: 10000,
+        b: 10000,
+        c: 10000,
+        d: 10000,
+        x: 10000,
+        y: 10000,
+        z: 10000,
       },
-      money: 1000,
       enemyList: [],
       techTree: TechTree,
       multipliers: {
@@ -155,12 +177,13 @@ const makeResourcePoints = async (req, res) => {
     }
   });
   const promises = [];
-  for (let i = 0; i < 50; ++i) {
+  for (let i = 0; i < 8; ++i) {
     const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
     const troop = {
       id: i,
       loc,
-      cost: {
+      cost: 1000,
+      award: {
         a: 100,
         b: 100,
         c: 100,
@@ -169,7 +192,7 @@ const makeResourcePoints = async (req, res) => {
         y: 100,
         z: 100,
       },
-      range: 100,
+      range: 10,
     };
     promises.push(resourcePoint.resourcePointModel.create(troop, (err, result) => {
       if (err) console.error(err);
@@ -191,13 +214,14 @@ const getResourcePoints = async (req, res) => {
     if (err) console.error(err);
     return result;
   });
-  console.log(resourcePoints);
   res.send(resourcePoints);
 };
 
 const mineResource = async (req, res) => {
   const { country, troopID, resourceID } = req.body;
-  const { loc, cost, range } = await resourcePoint.resourcePointModel.findOne({ id: resourceID });
+  const {
+    loc, cost, award, range,
+  } = await resourcePoint.resourcePointModel.findOne({ id: resourceID });
   const nearTroops = await Troop.troopModel.aggregate([
     {
       $geoNear: {
@@ -208,31 +232,29 @@ const mineResource = async (req, res) => {
       },
     },
     { $addFields: { isIn: { $subtract: ['$distance', range * 0.0174532925] } } },
-    // { $match: { isIn: { $lte: 0 } } },
+    { $match: { isIn: { $lte: 0 } } },
     // { $match: { country } },
   ]);
-  console.log(nearTroops);
   const isin = nearTroops.filter(troop => troop.id === troopID);
-  if (isin) {
-    const { resource } = await Country.countryModel.findOne({ name: country }, 'resource', (err, result) => {
+  if (isin.length) {
+    const { money } = await Country.countryModel.findOne({ name: country }, 'money', (err, result) => {
       if (err) console.error(err);
       return result;
     });
-    console.log(cost);
-    console.log(resource);
-    const isWealthy = Object.keys(resource).reduce((acc, cur) => ((resource[cur] >= cost[cur]) ? acc : acc - 1), 0);
-    if (isWealthy >= 0) {
+    // const isWealthy = Object.keys(resource).reduce((acc, cur) => ((resource[cur] >= cost[cur]) ? acc : acc - 1), 0);
+    if (money >= cost) {
       await Country.countryModel.update(
         { name: country },
         {
           $inc: {
-            'resource.a': -cost.a / 2,
-            'resource.b': -cost.b / 2,
-            'resource.c': -cost.c / 2,
-            'resource.d': -cost.d / 2,
-            'resource.x': -cost.x / 2,
-            'resource.y': -cost.y / 2,
-            'resource.z': -cost.z / 2,
+            'resource.a': award.a / 2,
+            'resource.b': award.b / 2,
+            'resource.c': award.c / 2,
+            'resource.d': award.d / 2,
+            'resource.x': award.x / 2,
+            'resource.y': award.y / 2,
+            'resource.z': award.z / 2,
+            money: -cost / 2,
           },
         }, (err, result) => {
           console.log(result);
@@ -249,4 +271,4 @@ const mineResource = async (req, res) => {
   }
 };
 
-export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList, makeResourcePoints, getResourcePoints, mineResource };
+export { init, addBlock, getReasource, getTechtree, developeTech, getCountryList, makeResourcePoints, getResourcePoints, mineResource, getAllCountries, modCountry, countryInfo };

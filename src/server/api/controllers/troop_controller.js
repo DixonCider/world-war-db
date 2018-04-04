@@ -90,67 +90,111 @@ game.startGame();
 const getMyTroops = async (req, res) => {
   const countryData = {};
   countryData.Nation = req.query.country;
-  console.log(countryData.Nation);
   // countryData.Troops = await Troop.troopModel.find({ country: req.query.country }, (err, result) => result);
-  countryData.Troops = await Troop.troopModel.aggregate([
-    {
-      $match: { country: req.query.country },
-    },
-    {
-      $lookup: {
-        from: 'countries',
-        localField: 'country',
-        foreignField: 'name',
-        as: 'countryInfo',
+  if (countryData.Nation === 'god') {
+    countryData.Troops = [];
+    const otherData = {};
+    // otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+    const enemy = await Troop.troopModel.aggregate([
+      {
+        $lookup: {
+          from: 'countries',
+          localField: 'country',
+          foreignField: 'name',
+          as: 'countryInfo',
+        },
       },
-    },
-    {
-      $unwind: '$countryInfo',
-    },
-    {
-      $addFields: {
-        attackR: '$countryInfo.troop.attackR',
-        fogR: '$countryInfo.troop.fogR',
+      {
+        $unwind: '$countryInfo',
       },
-    },
-    {
-      $project: {
-        countryInfo: 0,
+      {
+        $addFields: {
+          attackR: '$countryInfo.troop.attackR',
+          fogR: '$countryInfo.troop.fogR',
+        },
       },
-    },
-  ], (err, result) => result);
-  const otherData = {};
-  // otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
-  otherData.Troops = await Troop.troopModel.aggregate([
-    {
-      $match: {
-        country: { $ne: req.query.country },
+      {
+        $project: {
+          countryInfo: 0,
+        },
       },
-    },
-    {
-      $lookup: {
-        from: 'countries',
-        localField: 'country',
-        foreignField: 'name',
-        as: 'countryInfo',
+    ], (err, result) => result);
+    otherData.Troops = enemy.map((troop) => {
+      const result = {};
+      Object.assign(result, troop);
+      result.AD = troop.unitAD * troop.size;
+      result.HP = troop.unitHP * troop.size;
+      return result;
+    });
+    res.send({ countryData, otherData });
+  } else {
+    countryData.Troops = await Troop.troopModel.aggregate([
+      {
+        $match: { country: req.query.country },
       },
-    },
-    {
-      $unwind: '$countryInfo',
-    },
-    {
-      $addFields: {
-        attackR: '$countryInfo.troop.attackR',
-        fogR: '$countryInfo.troop.fogR',
+      {
+        $lookup: {
+          from: 'countries',
+          localField: 'country',
+          foreignField: 'name',
+          as: 'countryInfo',
+        },
       },
-    },
-    {
-      $project: {
-        countryInfo: 0,
+      {
+        $unwind: '$countryInfo',
       },
-    },
-  ], (err, result) => result);
-  res.send({ countryData, otherData });
+      {
+        $addFields: {
+          attackR: '$countryInfo.troop.attackR',
+          fogR: '$countryInfo.troop.fogR',
+        },
+      },
+      {
+        $project: {
+          countryInfo: 0,
+        },
+      },
+    ], (err, result) => result);
+    const otherData = {};
+    // otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
+    const enemy = await Troop.troopModel.aggregate([
+      {
+        $match: {
+          country: { $ne: req.query.country },
+        },
+      },
+      {
+        $lookup: {
+          from: 'countries',
+          localField: 'country',
+          foreignField: 'name',
+          as: 'countryInfo',
+        },
+      },
+      {
+        $unwind: '$countryInfo',
+      },
+      {
+        $addFields: {
+          attackR: '$countryInfo.troop.attackR',
+          fogR: '$countryInfo.troop.fogR',
+        },
+      },
+      {
+        $project: {
+          countryInfo: 0,
+        },
+      },
+    ], (err, result) => result);
+    otherData.Troops = enemy.map((troop) => {
+      const result = {};
+      Object.assign(result, troop);
+      result.AD = troop.unitAD * troop.size;
+      result.HP = troop.unitHP * troop.size;
+      return result;
+    });
+    res.send({ countryData, otherData });
+  }
 };
 
 const getEnemyList = async (req, res) => {
@@ -176,7 +220,8 @@ const update = async (req, res) => {
 
 const updateDest = async (req, res) => {
   const modifiedTroop = req.body;
-  Troop.troopModel.findOneAndUpdate({ _id: modifiedTroop._id }, { $set: { dest: modifiedTroop.dest } }, (err, data) => {
+  const dest = [parseFloat(modifiedTroop.dest[0]), parseFloat(modifiedTroop.dest[1])];
+  Troop.troopModel.findOneAndUpdate({ _id: modifiedTroop._id }, { $set: { dest } }, (err, data) => {
     if (err) return Promise.reject(err);
     else return data;
   });
@@ -206,14 +251,20 @@ const addTroop = async (req, res) => {
     unitHP: 1000,
     fogR: 10,
   };
-  await Troop.troopModel.create(troop, (err) => {
-    if (err) {
-      console.error(err);
-      res.send(err);
-    } else {
-      res.send(`successful, id: ${number + 1}`);
-    }
-  });
+  await Troop.troopModel.create(troop);
+  await Country.countryModel.update(
+    { name: country },
+    {
+      $inc: {
+        money: -countryData.troopCost / 2,
+      },
+    }, (err, result) => {
+      console.log(result);
+      if (err) console.error(err);
+      return result;
+    },
+  );
+  res.send('ok');
 };
 
 export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, getEnemyList, update, updateDest, updateEnemy, addTroop };

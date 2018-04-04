@@ -5,8 +5,11 @@ import * as countryController from './controllers/country_controller';
 const router = server.Router();
 
 router.get('/showAllTroops', TroopController.showAllTroops);
+router.get('/allCountries', countryController.getAllCountries);
+router.get('/countryInfo', countryController.countryInfo);
+router.post('/modCountry', countryController.modCountry);
 
-router.post('/addtroop', TroopController.addTroop);
+router.post('/addTroop', TroopController.addTroop);
 router.get('/getMyTroops', TroopController.getMyTroops);
 router.post('/update', TroopController.update);
 router.post('/updateDest', TroopController.updateDest);
