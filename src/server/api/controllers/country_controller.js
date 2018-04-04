@@ -1,5 +1,5 @@
 import { Country, Block, resourcePoint, Troop } from 'models';
-import { Countries, TechTree } from 'game';
+import { Countries, TechTree, countrySetting } from 'game';
 
 const getCountryList = (req, res) => {
   res.send(Countries);
@@ -12,6 +12,7 @@ const getAllCountries = async (req, res) => {
 
 const modCountry = async (req, res) => {
   const data = req.body;
+  delete data._id;
   await Country.countryModel.update(
     { name: data.name },
     data,
@@ -36,8 +37,9 @@ const init = async (req, res) => {
     const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
     const country = {
       name: element,
-      capital: loc,
-      money: 1000,
+      capital: countrySetting[element] ? countrySetting[element].capital : loc,
+      money: 100000,
+      income: 1,
       troop: {
         fogR: 10,
         attackR: 5,
@@ -102,14 +104,15 @@ const getReasource = async (req, res) => {
 
 const getTechtree = async (req, res) => {
   const { country } = req.query;
-  const techTree = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
+  const { techTree } = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
     if (err) console.error(err);
     return result;
   });
+  const { nuclear } = techTree;
   if (!techTree) {
     res.send('country not found');
   } else {
-    res.send(techTree);
+    res.send({ techTree: { atk: techTree.atk, hp: techTree.hp, money: techTree.money }, nuclear });
   }
 };
 
@@ -236,7 +239,7 @@ const getResourcePoints = async (req, res) => {
 };
 
 const mineResource = async (req, res) => {
-  const { country, troopID, resourceID } = req.body;
+  const { country, resourceID } = req.body;
   const {
     loc, cost, award, range,
   } = await resourcePoint.resourcePointModel.findOne({ id: resourceID });
@@ -251,10 +254,12 @@ const mineResource = async (req, res) => {
     },
     { $addFields: { isIn: { $subtract: ['$distance', range * 0.0174532925] } } },
     { $match: { isIn: { $lte: 0 } } },
-    // { $match: { country } },
+    { $match: { country } },
   ]);
-  const isin = nearTroops.filter(troop => troop.id === troopID);
-  if (isin.length) {
+  console.log(nearTroops);
+  // const isin = nearTroops.filter(troop => troop.id === troopID);
+  const isin = nearTroops.length !== 0;
+  if (isin) {
     const { money } = await Country.countryModel.findOne({ name: country }, 'money', (err, result) => {
       if (err) console.error(err);
       return result;
@@ -291,21 +296,35 @@ const mineResource = async (req, res) => {
 
 const developeNuke = async (req, res) => {
   const { country } = req.body;
-  await Country.countryModel.update(
-    { name: country },
-    {
-      $set: {
-        nuclear: true,
-      },
-    },
-  );
-  res.send('nuked!');
+  const { techTree, resource } = await Country.countryModel.findOne({ name: country }, { techTree: 1, resource: 1 }, (err, result) => {
+    if (err) console.err(err);
+    return result;
+  });
+  if (techTree.atk[techTree.atk.length - 1].developed && techTree.money[techTree.money.length - 1].developed && techTree.hp[techTree.hp.length - 1].developed) {
+    const isWealthy = Object.keys(resource).reduce((acc, cur) => ((resource[cur] >= techTree.nuclear.cost[cur]) ? acc : acc - 1), 0);
+    if (isWealthy >= 0) {
+      await Country.countryModel.update(
+        { name: country },
+        {
+          $set: {
+            'techTree.nuclear.developed': true,
+          },
+        },
+      );
+      res.send('got nuke!');
+    } else {
+      console.log('not enough resources');
+      res.send('not enough resources');
+    }
+  } else {
+    res.send('prev not developed');
+  }
 };
 
 const nuke = async (req, res) => {
   const { country, target } = req.body;
-  const { nuclear } = await Country.countryModel.findOne({ name: country });
-  if (nuclear) {
+  const { techTree } = await Country.countryModel.findOne({ name: country });
+  if (techTree.nuclear.developed) {
     console.log(target);
     await Troop.troopModel.update(
       { country: target },

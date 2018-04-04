@@ -1,5 +1,5 @@
 import geolib from 'geolib';
-import { Troop } from 'models';
+import { Troop, Country } from 'models';
 
 const enemyList = {
   DPRK: [],
@@ -12,6 +12,20 @@ const enemyList = {
   India: [],
   Phillipines: [],
   Vietnam: [],
+};
+
+const regen = async () => {
+  const countries = await Country.countryModel.find();
+  countries.forEach(async (country) => {
+    await Country.countryModel.update(
+      { name: country.name },
+      {
+        $inc: {
+          money: country.income,
+        },
+      },
+    );
+  });
 };
 
 const fight = async () => {
@@ -79,4 +93,4 @@ const move = async () => {
   }));
 };
 
-export { fight, move, enemyList };
+export { fight, move, enemyList, regen };

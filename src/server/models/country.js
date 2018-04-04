@@ -4,6 +4,7 @@ const countrySchema = new Schema({
   name: { type: String, required: true },
   capital: { type: Array, required: true },
   money: { type: Number, required: true },
+  income: { type: Number, required: true },
   troop: {
     fogR: { type: Number, required: true },
     attackR: { type: Number, required: true },
@@ -62,6 +63,20 @@ const countrySchema = new Schema({
         z: { type: Number, required: true },
       },
     }],
+    nuclear: {
+      name: { type: String, required: true },
+      effect: { type: Number, required: true },
+      developed: { type: Boolean, required: true },
+      cost: {
+        a: { type: Number, required: true },
+        b: { type: Number, required: true },
+        c: { type: Number, required: true },
+        d: { type: Number, required: true },
+        x: { type: Number, required: true },
+        y: { type: Number, required: true },
+        z: { type: Number, required: true },
+      },
+    },
   },
   multipliers: {
     atk: { type: Number, required: true },

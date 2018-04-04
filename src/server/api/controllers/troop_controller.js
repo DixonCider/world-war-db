@@ -118,6 +118,7 @@ const getMyTroops = async (req, res) => {
           countryInfo: 0,
         },
       },
+      { $match: { size: { $gt: 0 } } },
     ], (err, result) => result);
     otherData.Troops = enemy.map((troop) => {
       const result = {};
@@ -154,6 +155,7 @@ const getMyTroops = async (req, res) => {
           countryInfo: 0,
         },
       },
+      { $match: { size: { $gt: 0 } } },
     ], (err, result) => result);
     const otherData = {};
     otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
@@ -163,6 +165,7 @@ const getMyTroops = async (req, res) => {
           country: { $ne: req.query.country },
         },
       },
+      { $match: { size: { $gt: 0 } } },
       {
         $lookup: {
           from: 'countries',
@@ -185,6 +188,7 @@ const getMyTroops = async (req, res) => {
           countryInfo: 0,
         },
       },
+      { $match: { size: { $gt: 0 } } },
     ], (err, result) => result);
     const nearbyTroops = [];
     const promises = enemy.map(async (troop) => {
@@ -214,7 +218,7 @@ const getMyTroops = async (req, res) => {
             fogR: '$countryInfo.troop.fogR',
           },
         },
-        { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
+        { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$fogR', 0.0174532925] }] } } },
         // { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
         { $match: { isIn: { $lte: 0 } } },
         { $match: { country: req.query.country } },

@@ -1,3 +1,5 @@
+// import { countryInfo } from "../api/controllers/country_controller";
+
 const Countries = ['DPRK', 'USA', 'Korea', 'Russia', 'PRC', 'Japan', 'Mexico', 'India', 'Phillipines', 'Vietnam'];
 
 const TechTree = {
@@ -175,6 +177,37 @@ const TechTree = {
       },
     },
   ],
+  nuclear: {
+    name: 'nuclear',
+    developed: false,
+    cost: {
+      a: 1000, b: 1000, c: 1000, d: 1000, x: 1000, y: 1000, z: 1000,
+    },
+  },
 };
 
-export { Countries, TechTree };
+const countrySetting = {
+  DPRK: {
+    capital: [39.2, 125.45],
+  },
+  USA: {
+    capital: [38.53, 77.01],
+  },
+  Korea: {
+    capital: [37.33, 126.58],
+  },
+  Russia: {
+    capital: [55.45, 37.37],
+  },
+  Japan: {
+    capital: [35.41, 139.46],
+  },
+  Mexico: {
+    capital: [19.26, 99.08],
+  },
+  India: {
+    capital: [28.368, 77.125],
+  },
+};
+
+export { Countries, TechTree, countrySetting };
