@@ -33,47 +33,53 @@ const fight = async () => {
 
   await Promise.all(troops.map(async (troop) => {
     const enemys = Object.keys(enemyList).filter(country => enemyList[country].includes(troop.country));
-    const proximityTroops = await Troop.troopModel.aggregate([
-      {
-        $geoNear: {
-          near: troop.loc,
-          distanceField: 'distance',
-          includeLocs: 'loc',
-          spherical: true,
+    // console.log(enemys);
+    try {
+      const proximityTroops = await Troop.troopModel.aggregate([
+        {
+          $geoNear: {
+            near: troop.loc,
+            distanceField: 'distance',
+            includeLocs: 'loc',
+            spherical: true,
+          },
         },
-      },
-      {
-        $lookup: {
-          from: 'countries',
-          localField: 'country',
-          foreignField: 'name',
-          as: 'attackR',
+        {
+          $lookup: {
+            from: 'countries',
+            localField: 'country',
+            foreignField: 'name',
+            as: 'countryInfo',
+          },
         },
-      },
-      {
-        $unwind: '$countryInfo',
-      },
-      {
-        $addFields: {
-          attackR: '$countryInfo.troop.attackR',
-          fogR: '$countryInfo.troop.fogR',
+        {
+          $unwind: '$countryInfo',
         },
-      },
-      { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
-      // { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
-      { $match: { isIn: { $lte: 0 } } },
-      { $match: { country: { $ne: troop.country } } },
-      { $match: { size: { $gt: 0 } } },
-      { $match: { country: { $in: enemys } } },
-    ]);
-    const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size), 0);
-    await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP } });
-    return proximityTroops;
-  }));
+        {
+          $addFields: {
+            attackR: '$countryInfo.troop.attackR',
+            fogR: '$countryInfo.troop.fogR',
+          },
+        },
+        { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
+        { $match: { isIn: { $lte: 0 } } },
+        { $match: { country: { $ne: troop.country } } },
+        { $match: { size: { $gt: 0 } } },
+        { $match: { country: { $in: enemys } } },
+      ]);
+      const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size), 0);
+      await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP } });
+    } catch (e) {
+      console.error(e);
+    };
+  }))
+    .catch((e) => {
+      console.error(e);
+    });
 };
 
 const move = async () => {
-  const speed = 100000;
+  const speed = 60000;
   const troops = await Troop.troopModel.find((err, result) => result);
   await Promise.all(troops.map((troop) => {
     const movedTroop = troop;
@@ -84,7 +90,7 @@ const move = async () => {
       });
     } else {
       const bearing = geolib.getBearing({ longitude: movedTroop.loc[0], latitude: movedTroop.loc[1] }, { longitude: movedTroop.dest[0], latitude: movedTroop.dest[1] });
-      const dest = geolib.computeDestinationPoint(movedTroop.loc, 100000, bearing);
+      const dest = geolib.computeDestinationPoint(movedTroop.loc, speed, bearing);
       Troop.troopModel.findOneAndUpdate({ _id: troop._id }, { $set: { loc: [dest.longitude, dest.latitude] } }, (err) => {
         if (err) console.error(err);
       });

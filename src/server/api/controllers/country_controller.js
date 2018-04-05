@@ -12,6 +12,7 @@ const getAllCountries = async (req, res) => {
 
 const modCountry = async (req, res) => {
   const data = req.body;
+  console.log(data);
   delete data._id;
   await Country.countryModel.update(
     { name: data.name },

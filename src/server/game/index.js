@@ -5,7 +5,7 @@ const gameLoop = () => {
   move();
   fight();
   regen();
-  setTimeout(gameLoop, 1000);
+  setTimeout(gameLoop, 5000);
 };
 
 const startGame = () => {
