@@ -29,7 +29,8 @@ const refresh = async (req, res) => {
     }
   });
 
-  const countries = ['DPRK', 'USA', 'Korea', 'Russia', 'PRC', 'Japan', 'Mexico', 'India', 'Phillipines', 'Vietnam'];
+  // const countries = ['DPRK', 'USA', 'Korea', 'Russia', 'PRC', 'Japan', 'Mexico', 'India', 'Philippines', 'Vietnam'];
+  const countries = game.Countries;
 
   const promises = [];
 
@@ -129,7 +130,7 @@ const getMyTroops = async (req, res) => {
     });
     res.send({ countryData, otherData });
   } else {
-    countryData.Troops = await Troop.troopModel.aggregate([
+    const myTroops = await Troop.troopModel.aggregate([
       {
         $match: { country: req.query.country },
       },
@@ -148,6 +149,7 @@ const getMyTroops = async (req, res) => {
         $addFields: {
           attackR: '$countryInfo.troop.attackR',
           fogR: '$countryInfo.troop.fogR',
+          multiplier: '$countryInfo.multipliers',
         },
       },
       {
@@ -157,6 +159,11 @@ const getMyTroops = async (req, res) => {
       },
       { $match: { size: { $gt: 0 } } },
     ], (err, result) => result);
+    countryData.Troops = myTroops.map((element) => {
+      element.unitAD *= element.multiplier.atk;
+      element.unitHP *= element.multiplier.hp;
+      return element;
+    })
     const otherData = {};
     otherData.Troops = await Troop.troopModel.find({ country: { $ne: req.query.country } }, (err, result) => result);
     const enemy = await Troop.troopModel.aggregate([
@@ -246,11 +253,6 @@ const getMyTroops = async (req, res) => {
   }
 };
 
-const getEnemyList = async (req, res) => {
-  const { country } = req.query;
-  res.send(game.enemyList[country]);
-};
-
 const update = async (req, res) => {
   const countryData = {};
   countryData.Nation = req.body.country;
@@ -277,8 +279,23 @@ const updateDest = async (req, res) => {
   res.send('yup');
 };
 
+const getEnemyList = async (req, res) => {
+  const { country } = req.query;
+  const { enemyList } = await Country.countryModel.findOne({ name: country }, 'enemyList')
+  res.send(enemyList);
+};
+
 const updateEnemy = async (req, res) => {
-  game.enemyList[req.body.country] = req.body.enemy || [];
+  // game.enemyList[req.body.country] = req.body.enemy || [];
+  const { country, enemy } = req.body;
+  await Country.countryModel.update(
+    { name: country },
+    { 
+      $set: {
+        enemyList: enemy,
+      },
+    },
+  );
   console.log(game.enemyList);
   res.send('ok');
 };
@@ -300,6 +317,7 @@ const addTroop = async (req, res) => {
     unitHP: 1000,
     fogR: 10,
   };
+  console.log(troop);
   await Troop.troopModel.create(troop);
   await Country.countryModel.update(
     { name: country },

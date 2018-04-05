@@ -1,5 +1,5 @@
 import { Country, Block, resourcePoint, Troop } from 'models';
-import { Countries, TechTree, countrySetting } from 'game';
+import { Countries, TechTree, countrySetting, resourcePoints } from 'game';
 
 const getCountryList = (req, res) => {
   res.send(Countries);
@@ -36,6 +36,8 @@ const init = async (req, res) => {
   await Countries.forEach(async (element) => {
     console.log(element);
     const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
+    // console.log(countrySetting[element].capital);
+    const DPRKtech = TechTree;
     const country = {
       name: element,
       capital: countrySetting[element] ? countrySetting[element].capital : loc,
@@ -56,7 +58,7 @@ const init = async (req, res) => {
         z: 10000,
       },
       enemyList: [],
-      techTree: TechTree,
+      techTree: element === 'DPRK' ? TechTree : TechTree,
       multipliers: {
         atk: 1,
         hp: 1,
@@ -105,22 +107,26 @@ const getReasource = async (req, res) => {
 
 const getTechtree = async (req, res) => {
   const { country } = req.query;
-  const { techTree } = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
-    if (err) console.error(err);
-    return result;
-  });
-  const { nuclear } = techTree;
-  if (!techTree) {
-    res.send('country not found');
+  if (country === 'god') {
+    res.send('you are god');
   } else {
-    res.send({ techTree: { atk: techTree.atk, hp: techTree.hp, money: techTree.money }, nuclear });
+    const { techTree } = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
+      if (err) console.error(err);
+      return result;
+    });
+    const { nuclear } = techTree;
+    console.log(nuclear);
+    if (!techTree) {
+      res.send('country not found');
+    } else {
+      res.send({ techTree: { atk: techTree.atk, hp: techTree.hp, money: techTree.money }, nuclear });
+    }
   }
 };
 
 const developeTech = async (req, res) => {
   const { country, tech, type = 'atk' } = req.query;
-  console.log(country);
-  const { techTree } = await Country.countryModel.findOne({ name: country }, 'techTree', (err, result) => {
+  const { techTree, multipliers } = await Country.countryModel.findOne({ name: country }, (err, result) => {
     if (err) console.err(err);
     return result;
   });
@@ -145,6 +151,8 @@ const developeTech = async (req, res) => {
           return result;
         },
       );
+      multipliers[type] *= techTree[type][techIndex].effect;
+      console.log(multipliers);
       await Country.countryModel.update(
         { name: country },
         {
@@ -157,7 +165,11 @@ const developeTech = async (req, res) => {
             'resource.y': -techTree[type][techIndex].cost.y / 2,
             'resource.z': -techTree[type][techIndex].cost.z / 2,
           },
-        }, (err, result) => {
+          $set: {
+            multipliers,
+          },
+        }, 
+        (err, result) => {
           console.log(result);
           if (err) console.error(err);
           return result;
@@ -180,24 +192,16 @@ const makeResourcePoints = async (req, res) => {
     }
   });
   const promises = [];
-  for (let i = 0; i < 8; ++i) {
+  for (let i = 0; i < resourcePoints.length; ++i) {
     const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
-    const troop = {
+    const point = {
       id: i,
-      loc,
-      cost: 1000,
-      award: {
-        a: 100,
-        b: 100,
-        c: 100,
-        d: 100,
-        x: 100,
-        y: 100,
-        z: 100,
-      },
-      range: 10,
+      loc: resourcePoints[i].loc,
+      cost: 500,
+      award: resourcePoints[i].award,
+      range: 4,
     };
-    promises.push(resourcePoint.resourcePointModel.create(troop, (err, result) => {
+    promises.push(resourcePoint.resourcePointModel.create(point, (err, result) => {
       if (err) console.error(err);
       else {
         console.log(`successful, id: ${result.id}`);
@@ -244,6 +248,7 @@ const mineResource = async (req, res) => {
   const {
     loc, cost, award, range,
   } = await resourcePoint.resourcePointModel.findOne({ id: resourceID });
+  console.log(country, resourceID);
   const nearTroops = await Troop.troopModel.aggregate([
     {
       $geoNear: {

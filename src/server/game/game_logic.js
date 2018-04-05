@@ -1,18 +1,19 @@
 import geolib from 'geolib';
 import { Troop, Country } from 'models';
+import { Countries } from 'game';
 
-const enemyList = {
-  DPRK: [],
-  USA: [],
-  Korea: [],
-  Russia: [],
-  ROC: [],
-  Japan: [],
-  Mexico: [],
-  India: [],
-  Phillipines: [],
-  Vietnam: [],
-};
+// const enemyList = {
+//   DPRK: [],
+//   USA: [],
+//   Korea: [],
+//   Russia: [],
+//   ROC: [],
+//   Japan: [],
+//   Mexico: [],
+//   India: [],
+//   Phillipines: [],
+//   Vietnam: [],
+// };
 
 const regen = async () => {
   const countries = await Country.countryModel.find();
@@ -29,9 +30,39 @@ const regen = async () => {
 };
 
 const fight = async () => {
-  const troops = await Troop.troopModel.find({ size: { $gte: 0 } }, (err, result) => result);
+  // const troops = await Troop.troopModel.find({ size: { $gte: 0 } }, (err, result) => result);
+  const troops = await Troop.troopModel.aggregate([
+    { 
+      $match: {
+        size: { $gte: 0 }
+      },
+    },
+    {
+      $lookup: {
+        from: 'countries',
+        localField: 'country',
+        foreignField: 'name',
+        as: 'countryInfo',
+      },
+    },
+    {
+      $unwind: '$countryInfo',
+    },
+    {
+      $addFields: {
+        multipliers: '$countryInfo.multipliers',
+      },
+    },
+
+  ]);
+  const enemyList = {}
+  await Promise.all(Countries.map( async (country) => {
+    const { enemyList: list } = await Country.countryModel.findOne({ name: country }, 'enemyList')
+    enemyList[country] = list;
+  }));
 
   await Promise.all(troops.map(async (troop) => {
+    
     const enemys = Object.keys(enemyList).filter(country => enemyList[country].includes(troop.country));
     // console.log(enemys);
     try {
@@ -59,6 +90,7 @@ const fight = async () => {
           $addFields: {
             attackR: '$countryInfo.troop.attackR',
             fogR: '$countryInfo.troop.fogR',
+            multipliers: '$countryInfo.multipliers',
           },
         },
         { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
@@ -67,8 +99,11 @@ const fight = async () => {
         { $match: { size: { $gt: 0 } } },
         { $match: { country: { $in: enemys } } },
       ]);
-      const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size), 0);
-      await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP } });
+      if (proximityTroops.length !== 0)
+        console.log(proximityTroops[0].multipliers);
+      const { multipliers } = await Country.countryModel.findOne({ name: troop.country }, 'multipliers');
+      const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size * enemy.multipliers.atk), 0);
+      await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP / troop.multipliers.hp } });
     } catch (e) {
       console.error(e);
     };
@@ -99,4 +134,4 @@ const move = async () => {
   }));
 };
 
-export { fight, move, enemyList, regen };
+export { fight, move, regen };
