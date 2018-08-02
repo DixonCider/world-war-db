@@ -12,7 +12,6 @@ const getAllCountries = async (req, res) => {
 
 const modCountry = async (req, res) => {
   const data = req.body;
-  console.log(data);
   delete data._id;
   await Country.countryModel.update(
     { name: data.name },
@@ -41,14 +40,16 @@ const init = async (req, res) => {
     const country = {
       name: element,
       capital: countrySetting[element] ? countrySetting[element].capital : loc,
-      money: 100000,
+      money: countrySetting[element] ? countrySetting[element].money : 10000,
+      // money: 10000,
       income: 1,
       troop: {
         fogR: 10,
-        attackR: 5,
+        attackR: 1,
       },
-      troopCost: 100,
-      resource: {
+      troopCost: 10000,
+      resource: countrySetting[element] ? countrySetting[element].resource : {
+      // resource : {
         a: 10000,
         b: 10000,
         c: 10000,
@@ -115,7 +116,6 @@ const getTechtree = async (req, res) => {
       return result;
     });
     const { nuclear } = techTree;
-    console.log(nuclear);
     if (!techTree) {
       res.send('country not found');
     } else {
@@ -132,13 +132,13 @@ const developeTech = async (req, res) => {
   });
   const techIndex = techTree[type].findIndex(x => x.name === tech);
   if (!techIndex || techTree[type][techIndex - 1].developed) {
-    const { resource } = await Country.countryModel.findOne({ name: country }, 'resource', (err, result) => {
+    const { resource, techTree } = await Country.countryModel.findOne({ name: country }, {resource: 1, techTree: 1}, (err, result) => {
       if (err) console.error(err);
       return result;
     });
     const isWealthy = Object.keys(resource).reduce((acc, cur) => ((resource[cur] >= techTree[type][techIndex].cost[cur]) ? acc : acc - 1), 0);
     if (isWealthy >= 0) {
-      console.log(techTree[type][techIndex].cost);
+      console.log(`${country} dev tech ${type} ${techIndex}`);
       await Country.countryModel.updateOne(
         { name: country, [`techTree.${type}.name`]: tech },
         {
@@ -146,13 +146,20 @@ const developeTech = async (req, res) => {
             [`techTree.${type}.$.developed`]: true,
           },
         }, (err, result) => {
-          console.log(result);
+          // console.log(result);
           if (err) console.error(err);
           return result;
         },
       );
+      const newMultipliers = {}
+      const keys = ['atk', 'hp', 'money']
+      keys.map((key) => {
+        multipliers[key] = techTree[key].reduce((acc, cur) => {
+          return acc *= cur.developed ? cur.effect : 1;
+        }, 1);
+      })
       multipliers[type] *= techTree[type][techIndex].effect;
-      console.log(multipliers);
+      console.log(`multipliers after: ${multipliers}`);
       await Country.countryModel.update(
         { name: country },
         {
@@ -170,12 +177,12 @@ const developeTech = async (req, res) => {
           },
         }, 
         (err, result) => {
-          console.log(result);
+          // console.log(result);
           if (err) console.error(err);
           return result;
         },
       );
-      console.log(techTree[type][techIndex].cost);
+      // console.log(techTree[type][techIndex].cost);
       res.send('ok');
     } else {
       res.send('not enough reasources');
@@ -199,7 +206,7 @@ const makeResourcePoints = async (req, res) => {
       loc: resourcePoints[i].loc,
       cost: 500,
       award: resourcePoints[i].award,
-      range: 4,
+      range: 2.5,
     };
     promises.push(resourcePoint.resourcePointModel.create(point, (err, result) => {
       if (err) console.error(err);
@@ -218,14 +225,20 @@ const makeResourcePoints = async (req, res) => {
 
 const addResourcePoint = async (req, res) => {
   const {
-    loc, cost, award, range,
+    loc = [0, 0],
+    cost = 1000,
+    award = {
+      a:0, b:0, c:0, d:0, x:0, y:0, z:0,
+    },
+    range = 2.5,
   } = req.body;
-  const num = await resourcePoint.resourcePointModel.find({}, (err, result) => {
+  const latest = await resourcePoint.resourcePointModel.find({}, (err, result) => {
     if (err) console.error(err);
     return result;
-  }).count();
+  }).sort({ $natural: -1 }).limit(1);
+  console.log(latest[0].id);
   const point = {
-    id: num + 1,
+    id: latest[0].id + 1,
     loc,
     cost,
     award,
@@ -248,7 +261,7 @@ const mineResource = async (req, res) => {
   const {
     loc, cost, award, range,
   } = await resourcePoint.resourcePointModel.findOne({ id: resourceID });
-  console.log(country, resourceID);
+  const countryData = Country.countryModel.findOne({ name: country});
   const nearTroops = await Troop.troopModel.aggregate([
     {
       $geoNear: {
@@ -262,7 +275,7 @@ const mineResource = async (req, res) => {
     { $match: { isIn: { $lte: 0 } } },
     { $match: { country } },
   ]);
-  console.log(nearTroops);
+  // console.log(nearTroops);
   // const isin = nearTroops.filter(troop => troop.id === troopID);
   const isin = nearTroops.length !== 0;
   if (isin) {
@@ -286,7 +299,7 @@ const mineResource = async (req, res) => {
             money: -cost / 2,
           },
         }, (err, result) => {
-          console.log(result);
+          console.log(`${country} mined ${resourceID}`);
           if (err) console.error(err);
           return result;
         },
@@ -331,22 +344,108 @@ const nuke = async (req, res) => {
   const { country, target } = req.body;
   const { techTree } = await Country.countryModel.findOne({ name: country });
   if (techTree.nuclear.developed) {
-    console.log(target);
-    await Troop.troopModel.update(
-      { country: target },
+    console.log(`nuked ${target}`);
+    // await Troop.troopModel.update(
+    //   { country: target },
+    //   {
+    //     $set: {
+    //       size: 0,
+    //     },
+    //   },
+    //   {
+    //     multi: true,
+    //   },
+    //   (err, result) => {
+    //     if (err) console.error(err);
+    //     else console.log(result);
+    //   },
+    // );
+    // const { multipliers } = await Country.countryModel.findOne({ name: target });
+    await Country.countryModel.update(
+      { name: country },
       {
         $set: {
-          size: 0,
+          'techTree.nuclear.developed': false,
         },
+        $mul: {
+          'resource.a': 0.7,
+          'resource.b': 0.7,
+          'resource.c': 0.7,
+          'resource.d': 0.7,
+          'resource.x': 0.7,
+          'resource.y': 0.7,
+          'resource.z': 0.7,
+          'money': 0.7,
+        }
+      }
+    );
+    await Troop.troopModel.update(
+      { country: country },
+      {
+        $mul: {
+          'size': 0.7,
+        }
+      }
+    );
+    await Country.countryModel.update(
+      { name: { $ne: country } },
+      { 
+        $mul: {
+          'resource.a': 0.5,
+          'resource.b': 0.5,
+          'resource.c': 0.5,
+          'resource.d': 0.5,
+          'resource.x': 0.5,
+          'resource.y': 0.5,
+          'resource.z': 0.5,
+          'money': 0.5,
+        }
       },
       {
         multi: true,
-      },
-      (err, result) => {
-        if (err) console.error(err);
-        else console.log(result);
-      },
+      }
     );
+    await Troop.troopModel.update(
+      { country: { $ne: country } },
+      {
+        $mul: {
+          'size': 0.5,
+        }
+      },
+      {
+        multi: true,
+      }
+    );
+    await Country.countryModel.update(
+      { name: target },
+      {
+        $mul: {
+          'resource.a': 0.5,
+          'resource.b': 0.5,
+          'resource.c': 0.5,
+          'resource.d': 0.5,
+          'resource.x': 0.5,
+          'resource.y': 0.5,
+          'resource.z': 0.5,
+          'money': 0.5,
+        }
+      },
+      {
+        multi: true,
+      }
+    );
+    await Troop.troopModel.update(
+      { country: target },
+      {
+        $mul: {
+          'size': 0.5,
+        }
+      },
+      {
+        multi: true,
+      }
+    );
+    await Country.countryModel.updateOne({ name: country }, { $set: { 'techTree.nuclear.developed': false } });
     res.send('nuked!');
   } else {
     res.send('no nuke la');

@@ -2,7 +2,7 @@ import mongoose, { Schema } from 'mongoose';
 
 const resourcePointSchema = new Schema({
   id: { type: Number, required: true },
-  loc: { type: Array, required: true },
+  loc: [{ type: Number, required: true }, { type: Number, required: true }],
   cost: { type: Number, required: true },
   award: {
     a: { type: Number, required: true },

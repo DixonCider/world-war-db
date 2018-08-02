@@ -1,0 +1,3337 @@
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb2846"),
+	"name" : "PRC",
+	"__v" : 0,
+	"capital" : [
+		116.4074,
+		39.9042
+	],
+	"enemyList" : [ ],
+	"income" : 20,
+	"money" : 73220.375,
+	"multipliers" : {
+		"atk" : 17.0859375,
+		"hp" : 17.0859375,
+		"money" : 17.0859375
+	},
+	"nuclear" : false,
+	"resource" : {
+		"a" : 0,
+		"b" : 150,
+		"c" : 157.5,
+		"d" : 12.5,
+		"x" : 100,
+		"y" : 150,
+		"z" : 125
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a8")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a7")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a6")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a5")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a4")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a3")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a2")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a1")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502a0")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029f")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029e")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029d")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029c")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029b")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395029a")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950299")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950298")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950297")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950296")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950295")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950294")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb2847"),
+	"name" : "USA",
+	"__v" : 0,
+	"capital" : [
+		-77.01,
+		38.53
+	],
+	"enemyList" : [
+		"DPRK",
+		"Russia",
+		"PRC",
+		"India",
+		"Vietnam"
+	],
+	"income" : 20,
+	"money" : 3997,
+	"multipliers" : {
+		"atk" : 5.0625,
+		"hp" : 7.59375,
+		"money" : 5.0625
+	},
+	"nuclear" : true,
+	"resource" : {
+		"a" : 0,
+		"b" : 0,
+		"c" : 0,
+		"d" : 0,
+		"x" : 200,
+		"y" : 250,
+		"z" : 200
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : true
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950269")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950268")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950267")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950266")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950265")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950264")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950263")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950262")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950261")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950260")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025f")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025e")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025d")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025c")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025b")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025a")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950259")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950258")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950257")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950256")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950255")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb2849"),
+	"name" : "Korea",
+	"__v" : 0,
+	"capital" : [
+		126.58,
+		37.33
+	],
+	"enemyList" : [
+		"DPRK"
+	],
+	"income" : 10,
+	"money" : 8037.859375,
+	"multipliers" : {
+		"atk" : 17.0859375,
+		"hp" : 17.0859375,
+		"money" : 17.0859375
+	},
+	"nuclear" : false,
+	"resource" : {
+		"a" : 275,
+		"b" : 75,
+		"c" : 10,
+		"d" : 0,
+		"x" : 250,
+		"y" : 250,
+		"z" : 200
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : true
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395027e")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395027d")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395027c")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395027b")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395027a")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950279")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950278")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950277")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950276")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950275")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950274")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950273")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950272")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950271")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950270")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026f")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026e")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026d")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026c")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026b")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395026a")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb284a"),
+	"name" : "Russia",
+	"__v" : 0,
+	"capital" : [
+		37.37,
+		55.45
+	],
+	"enemyList" : [
+		"USA",
+		"Japan",
+		"Philippines"
+	],
+	"income" : 10,
+	"money" : 3766.65625,
+	"multipliers" : {
+		"atk" : 7.59375,
+		"hp" : 17.0859375,
+		"money" : 11.390625
+	},
+	"nuclear" : true,
+	"resource" : {
+		"a" : 0,
+		"b" : 500,
+		"c" : 50,
+		"d" : 100,
+		"x" : 200,
+		"y" : 250,
+		"z" : 0
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : true
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950293")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950292")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950291")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950290")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395028f")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e9395028e")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e9395028d")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395028c")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395028b")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395028a")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950289")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950288")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950287")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950286")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950285")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950284")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950283")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950282")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950281")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950280")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e9395027f")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb284d"),
+	"name" : "Japan",
+	"__v" : 0,
+	"capital" : [
+		139.46,
+		35.41
+	],
+	"enemyList" : [
+		"DPRK",
+		"Russia",
+		"PRC",
+		"India",
+		"Vietnam"
+	],
+	"income" : 15,
+	"money" : 4586.75,
+	"multipliers" : {
+		"atk" : 17.0859375,
+		"hp" : 7.59375,
+		"money" : 7.59375
+	},
+	"nuclear" : false,
+	"resource" : {
+		"a" : 650,
+		"b" : 50,
+		"c" : 415,
+		"d" : 75,
+		"x" : 300,
+		"y" : 1900,
+		"z" : 50
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502bd")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502bc")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502bb")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ba")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b9")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b8")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b7")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b6")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b5")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b4")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b3")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502b2")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502b1")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502b0")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502af")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ae")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ad")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ac")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ab")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502aa")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502a9")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb284f"),
+	"name" : "Philippines",
+	"__v" : 0,
+	"capital" : [
+		120.9842,
+		14.5995
+	],
+	"enemyList" : [
+		"DPRK",
+		"Russia"
+	],
+	"income" : 10,
+	"money" : 5529.5,
+	"multipliers" : {
+		"atk" : 5.0625,
+		"hp" : 5.0625,
+		"money" : 7.59375
+	},
+	"nuclear" : false,
+	"resource" : {
+		"a" : 450,
+		"b" : 250,
+		"c" : 300,
+		"d" : 350,
+		"x" : 1600,
+		"y" : 0,
+		"z" : 0
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e7")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e6")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e5")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e4")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e3")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502e2")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502e1")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502e0")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502df")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502de")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502dd")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502dc")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502db")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502da")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d9")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d8")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d7")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d6")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d5")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d4")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502d3")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb2850"),
+	"name" : "Vietnam",
+	"__v" : 0,
+	"capital" : [
+		105.8342,
+		21.0278
+	],
+	"enemyList" : [ ],
+	"income" : 10,
+	"money" : 3946.125,
+	"multipliers" : {
+		"atk" : 7.59375,
+		"hp" : 7.59375,
+		"money" : 5.0625
+	},
+	"nuclear" : false,
+	"resource" : {
+		"a" : 0,
+		"b" : 0,
+		"c" : 50,
+		"d" : 0,
+		"x" : 3750,
+		"y" : 0,
+		"z" : 0
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502fc")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502fb")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502fa")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f9")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f8")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f7")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f6")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f5")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f4")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f3")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f2")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f1")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502f0")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ef")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ee")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ed")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ec")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502eb")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ea")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502e9")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502e8")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac71d5516ce8f755bcb2852"),
+	"name" : "India",
+	"__v" : 0,
+	"capital" : [
+		77.125,
+		28.368
+	],
+	"enemyList" : [ ],
+	"income" : 15,
+	"money" : 43236.75,
+	"multipliers" : {
+		"atk" : 5.0625,
+		"hp" : 11.390625,
+		"money" : 5.0625
+	},
+	"nuclear" : true,
+	"resource" : {
+		"a" : 1200,
+		"b" : 100,
+		"c" : 600,
+		"d" : 0,
+		"x" : 0,
+		"y" : 50,
+		"z" : 0
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d2")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d1")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502d0")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502cf")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ce")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502cd")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502cc")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502cb")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502ca")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c9")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c8")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c7")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c6")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502c5")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c4")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c3")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c2")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e939502c1")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502c0")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502bf")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e939502be")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}
+{
+	"_id" : ObjectId("5ac98adb9c1fba3fb79c71fa"),
+	"name" : "DPRK",
+	"__v" : 0,
+	"capital" : [
+		125.45,
+		39.2
+	],
+	"enemyList" : [
+		"USA",
+		"Korea",
+		"Japan"
+	],
+	"income" : 10,
+	"money" : 5291.3125,
+	"multipliers" : {
+		"atk" : 7.59375,
+		"hp" : 7.59375,
+		"money" : 7.59375
+	},
+	"nuclear" : true,
+	"resource" : {
+		"a" : 300,
+		"b" : 1075,
+		"c" : 310,
+		"d" : 300,
+		"x" : 150,
+		"y" : 1350,
+		"z" : 0
+	},
+	"techTree" : {
+		"nuclear" : {
+			"cost" : {
+				"a" : 0,
+				"b" : 0,
+				"c" : 0,
+				"d" : 0,
+				"x" : 200,
+				"y" : 200,
+				"z" : 200
+			},
+			"name" : "nuclear",
+			"developed" : false
+		},
+		"atk" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 100,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "carbines",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950269")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 150,
+					"c" : 50,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "grenades",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950268")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 300,
+					"c" : 0,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "recoilless rifles",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950267")
+			},
+			{
+				"cost" : {
+					"a" : 300,
+					"b" : 400,
+					"c" : 200,
+					"d" : 200,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "cannons",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950266")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 300,
+					"d" : 300,
+					"x" : 100,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "tanks",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950265")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 500,
+					"c" : 0,
+					"d" : 400,
+					"x" : 150,
+					"y" : 50,
+					"z" : 0
+				},
+				"name" : "artillery",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e93950264")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 150,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "missiles",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e93950263")
+			}
+		],
+		"hp" : [
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 50,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level1",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950262")
+			},
+			{
+				"cost" : {
+					"a" : 50,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level2",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950261")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level3",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950260")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 100,
+					"c" : 150,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "level4",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025f")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 0,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "level5",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025e")
+			},
+			{
+				"cost" : {
+					"a" : 200,
+					"b" : 0,
+					"c" : 250,
+					"d" : 0,
+					"x" : 0,
+					"y" : 50,
+					"z" : 100
+				},
+				"name" : "level6",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e9395025d")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 150,
+					"z" : 0
+				},
+				"name" : "level7",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e9395025c")
+			}
+		],
+		"money" : [
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 0,
+					"d" : 50,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "silver",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025b")
+			},
+			{
+				"cost" : {
+					"a" : 100,
+					"b" : 0,
+					"c" : 150,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "gold",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e9395025a")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 150,
+					"c" : 150,
+					"d" : 100,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "platnum",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950259")
+			},
+			{
+				"cost" : {
+					"a" : 350,
+					"b" : 150,
+					"c" : 200,
+					"d" : 150,
+					"x" : 0,
+					"y" : 0,
+					"z" : 0
+				},
+				"name" : "plutonium",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950258")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 200,
+					"d" : 250,
+					"x" : 0,
+					"y" : 100,
+					"z" : 0
+				},
+				"name" : "taafeite",
+				"effect" : 1.5,
+				"developed" : true,
+				"_id" : ObjectId("5ac71d55beb1235e93950257")
+			},
+			{
+				"cost" : {
+					"a" : 400,
+					"b" : 50,
+					"c" : 200,
+					"d" : 0,
+					"x" : 50,
+					"y" : 0,
+					"z" : 50
+				},
+				"name" : "diamond",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e93950256")
+			},
+			{
+				"cost" : {
+					"a" : 0,
+					"b" : 0,
+					"c" : 0,
+					"d" : 0,
+					"x" : 0,
+					"y" : 0,
+					"z" : 150
+				},
+				"name" : "californium",
+				"effect" : 1.5,
+				"developed" : false,
+				"_id" : ObjectId("5ac71d55beb1235e93950255")
+			}
+		]
+	},
+	"troop" : {
+		"fogR" : 10,
+		"attackR" : 1
+	},
+	"troopCost" : 10000
+}

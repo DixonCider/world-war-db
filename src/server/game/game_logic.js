@@ -22,7 +22,7 @@ const regen = async () => {
       { name: country.name },
       {
         $inc: {
-          money: country.income,
+          money: country.income * country.multipliers.money,
         },
       },
     );
@@ -62,7 +62,7 @@ const fight = async () => {
   }));
 
   await Promise.all(troops.map(async (troop) => {
-    
+    // console.log(enemyList);
     const enemys = Object.keys(enemyList).filter(country => enemyList[country].includes(troop.country));
     // console.log(enemys);
     try {
@@ -99,8 +99,6 @@ const fight = async () => {
         { $match: { size: { $gt: 0 } } },
         { $match: { country: { $in: enemys } } },
       ]);
-      if (proximityTroops.length !== 0)
-        console.log(proximityTroops[0].multipliers);
       const { multipliers } = await Country.countryModel.findOne({ name: troop.country }, 'multipliers');
       const damage = proximityTroops.reduce((totalATK, enemy) => Math.floor(totalATK + enemy.unitAD * enemy.size * enemy.multipliers.atk), 0);
       await Troop.troopModel.findOneAndUpdate({ _id: troop._id, size: { $gte: 0 } }, { $inc: { size: -damage / troop.unitHP / troop.multipliers.hp } });
@@ -114,7 +112,7 @@ const fight = async () => {
 };
 
 const move = async () => {
-  const speed = 60000;
+  const speed = 200000;
   const troops = await Troop.troopModel.find((err, result) => result);
   await Promise.all(troops.map((troop) => {
     const movedTroop = troop;

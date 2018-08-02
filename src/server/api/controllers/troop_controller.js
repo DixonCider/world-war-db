@@ -9,7 +9,7 @@ const addExperimentalData = (req, res) => {
     loc: [120, 23.5],
     dest: [120, 24.5],
     size: 100,
-    unitAD: 100,
+    unitAD: 10,
     unitHP: 1000,
     fogR: 10,
   };
@@ -33,28 +33,56 @@ const refresh = async (req, res) => {
   const countries = game.Countries;
 
   const promises = [];
+  let i = 0;
 
-  for (let i = 0; i < 50; ++i) {
-    const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
-    const troop = {
-      country: countries[Math.floor((countries.length) * Math.random())],
-      id: i,
-      loc,
-      dest: loc,
-      size: 100,
-      unitAD: 10,
-      unitHP: 100,
-      surroundingTroops: 0,
-      // fogR: 10,
-      // attackR: 10,
-    };
-    promises.push(Troop.troopModel.create(troop, (err, result) => {
-      if (err) console.error(err);
-      else {
-        console.log(`successful, id: ${result.id}`);
-      }
-    }));
-  }
+  countries.map(country => {
+    const troops = game.troopData[country];
+    troops.map((loc) => {
+      // const loc = troop;
+      const troop = {
+        country,
+        id: i++,
+        loc,
+        // loc: [360 * Math.random() - 180, 180 * Math.random() - 90],
+        dest: loc,
+        // dest: [360 * Math.random() - 180, 180 * Math.random() - 90],
+        size: 100,
+        unitAD: 10,
+        unitHP: 100,
+        surroundingTroops: 0,
+        // fogR: 10,
+        // attackR: 10,
+      };
+      promises.push(Troop.troopModel.create(troop, (err, result) => {
+        if (err) console.error(err);
+        else {
+          console.log(`successful, id: ${result.id}`);
+        }
+      }));
+    })
+  });
+
+  // for (let i = 0; i < 50; ++i) {
+  //   const loc = [360 * Math.random() - 180, 180 * Math.random() - 90];
+  //   const troop = {
+  //     country: countries[Math.floor((countries.length) * Math.random())],
+  //     id: i,
+  //     loc,
+  //     dest: loc,
+  //     size: 100,
+  //     unitAD: 10,
+  //     unitHP: 100,
+  //     surroundingTroops: 0,
+  //     // fogR: 10,
+  //     // attackR: 10,
+  //   };
+  //   promises.push(Troop.troopModel.create(troop, (err, result) => {
+  //     if (err) console.error(err);
+  //     else {
+  //       console.log(`successful, id: ${result.id}`);
+  //     }
+  //   }));
+  // }
   Promise.all(promises)
     .then(() => res.send('inserted data'))
     .catch((e) => {
@@ -112,6 +140,7 @@ const getMyTroops = async (req, res) => {
         $addFields: {
           attackR: '$countryInfo.troop.attackR',
           fogR: '$countryInfo.troop.fogR',
+          multiplier: '$countryInfo.multipliers',
         },
       },
       {
@@ -124,8 +153,8 @@ const getMyTroops = async (req, res) => {
     otherData.Troops = enemy.map((troop) => {
       const result = {};
       Object.assign(result, troop);
-      result.AD = troop.unitAD * troop.size;
-      result.HP = troop.unitHP * troop.size;
+      result.AD = troop.unitAD * troop.size * troop.multiplier.atk;
+      result.HP = troop.unitHP * troop.size * troop.multiplier.hp;
       return result;
     });
     res.send({ countryData, otherData });
@@ -188,6 +217,7 @@ const getMyTroops = async (req, res) => {
         $addFields: {
           attackR: '$countryInfo.troop.attackR',
           fogR: '$countryInfo.troop.fogR',
+          multiplier: '$countryInfo.multipliers',
         },
       },
       {
@@ -226,7 +256,6 @@ const getMyTroops = async (req, res) => {
           },
         },
         { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$fogR', 0.0174532925] }] } } },
-        // { $addFields: { isIn: { $subtract: ['$distance', { $multiply: ['$attackR', 0.0174532925] }] } } },
         { $match: { isIn: { $lte: 0 } } },
         { $match: { country: req.query.country } },
         { $match: { size: { $gt: 0 } } },
@@ -240,8 +269,10 @@ const getMyTroops = async (req, res) => {
         otherData.Troops = nearbyTroops.map((troop) => {
           const result = {};
           Object.assign(result, troop);
-          result.AD = troop.unitAD * troop.size;
-          result.HP = troop.unitHP * troop.size;
+          // result.AD = troop.unitAD * troop.size;
+          // result.HP = troop.unitHP * troop.size;
+          result.AD = troop.unitAD * troop.size * troop.multiplier.atk;
+          result.HP = troop.unitHP * troop.size * troop.multiplier.hp;
           return result;
         });
         res.send({ countryData, otherData });
@@ -292,46 +323,50 @@ const updateEnemy = async (req, res) => {
     { name: country },
     { 
       $set: {
-        enemyList: enemy,
+        enemyList: enemy || [],
       },
     },
   );
-  console.log(game.enemyList);
+  console.log(`${country} enemy: ${enemy || []}`);
   res.send('ok');
 };
 
 const addTroop = async (req, res) => {
   const { country } = req.body;
   const countryData = await Country.countryModel.findOne({ name: country });
-  const number = await Troop.troopModel.find({}, (err, result) => {
-    if (err) console.error(err);
-    return result;
-  }).count();
-  const troop = {
-    country,
-    id: number + 1,
-    loc: countryData.capital,
-    dest: countryData.capital,
-    size: 100,
-    unitAD: 100,
-    unitHP: 1000,
-    fogR: 10,
-  };
-  console.log(troop);
-  await Troop.troopModel.create(troop);
-  await Country.countryModel.update(
-    { name: country },
-    {
-      $inc: {
-        money: -countryData.troopCost / 2,
-      },
-    }, (err, result) => {
-      console.log(result);
+  if (countryData.money > countryData.troopCost){
+    const number = await Troop.troopModel.find({}, (err, result) => {
       if (err) console.error(err);
       return result;
-    },
-  );
-  res.send('ok');
+    }).count();
+    const troop = {
+      country,
+      id: number + 1,
+      loc: countryData.capital,
+      dest: countryData.capital,
+      size: 50,
+      unitAD: 10,
+      unitHP: 100,
+      fogR: 10,
+    };
+    console.log('added troop:', troop);
+    await Troop.troopModel.create(troop);
+    await Country.countryModel.update(
+      { name: country },
+      {
+        $inc: {
+          money: -countryData.troopCost / 2,
+        },
+      }, (err, result) => {
+        console.log(result);
+        if (err) console.error(err);
+        return result;
+      },
+    );
+    res.send('ok');
+  } else {
+    res.send('too poor');
+  }
 };
 
 export { addExperimentalData, showAllTroops, moveTroops, refresh, getMyTroops, getEnemyList, update, updateDest, updateEnemy, addTroop };

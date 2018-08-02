@@ -2,7 +2,8 @@ import mongoose, { Schema } from 'mongoose';
 
 const countrySchema = new Schema({
   name: { type: String, required: true },
-  capital: { type: Array, required: true },
+  capital: [{ type: Number, required: true }, { type: Number, required: true }],
+  // capital: { type: Array, required: true },
   money: { type: Number, required: true },
   income: { type: Number, required: true },
   troop: {
